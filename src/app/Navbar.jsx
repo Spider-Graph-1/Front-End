@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
   Button,
+  Link,
   makeStyles,
 } from '@material-ui/core';
 // Routing
@@ -36,9 +37,14 @@ const Navbar = () => {
         </Typography>
 
         {authenticated ? (
-          <Button variant="outlined" color="primary">
-            Logout
-          </Button>
+          <>
+            <Link to="/dashboard" component={RouterLink} variant="primary">
+              Dashboard
+            </Link>
+            <Button variant="outlined" color="primary">
+              Logout
+            </Button>
+          </>
         ) : (
           <>
             <Button

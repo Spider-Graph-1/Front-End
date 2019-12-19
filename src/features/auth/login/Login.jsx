@@ -1,25 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
+  CircularProgress,
   Drawer,
   TextField,
   makeStyles,
   Typography,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { authenticate } from '../authSlice';
+import { authenticate, clearAuthenticationAttempt } from '../authSlice';
 
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
+    padding: theme.spacing(2),
+    borderBottom: `2px solid ${theme.palette.primary.main}`,
   },
   navButton: {
     margin: theme.spacing(1),
   },
   formField: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1.5),
+  },
+  buttonProgress: {
+    color: theme.palette.primary.main,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   },
 }));
 
@@ -30,18 +41,18 @@ const initialFormValues = {
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { success, error } = useSelector((state) => state.auth);
+  const { authenticating, success, error } = useSelector((state) => state.auth);
 
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const toggleDrawer = () => {
+  const toggleDrawer = useCallback(() => {
     setIsOpen(false);
     setFormValues(initialFormValues);
-  };
+    dispatch(clearAuthenticationAttempt());
+  }, [dispatch]);
 
   const handleChange = (event) => {
     setFormValues({
@@ -56,13 +67,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (success) {
-      toggleDrawer();
-    }
-    if (error) {
-      setErrorMessage('Login failed.');
-    }
-  }, [error, success]);
+    success && toggleDrawer();
+  }, [success, toggleDrawer]);
 
   return (
     <>
@@ -93,22 +99,26 @@ const Login = () => {
           >
             <TextField
               required
+              error={error}
               name="username"
-              value={formValues.username}
+              defaultValue={formValues.username}
               label="Username"
-              helperText={errorMessage}
+              helperText={error && 'Login Failed'}
               variant="filled"
+              color="secondary"
               onChange={handleChange}
               className={classes.formField}
             />
             <TextField
               required
+              error={error}
               name="password"
               type="password"
-              value={formValues.password}
+              defaultValue={formValues.password}
               label="Password"
-              helperText={errorMessage}
+              helperText={error && 'Login Failed'}
               variant="filled"
+              color="secondary"
               onChange={handleChange}
               className={classes.formField}
             />
@@ -117,7 +127,16 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
+                disabled={authenticating}
                 className={classes.navButton}
+                startIcon={
+                  authenticating && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )
+                }
               >
                 Submit
               </Button>

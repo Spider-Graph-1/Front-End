@@ -43,6 +43,11 @@ const authenticateUser = createSlice({
         error: null,
       };
     },
+    clearAuthenticationAttempt() {
+      return {
+        initialState,
+      };
+    },
   },
 });
 
@@ -51,6 +56,7 @@ export const {
   authenticateUserSuccess,
   authenticateUserError,
   unAuthenticateUser,
+  clearAuthenticationAttempt,
 } = authenticateUser.actions;
 
 export default authenticateUser.reducer;
