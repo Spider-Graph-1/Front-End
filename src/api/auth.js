@@ -1,6 +1,11 @@
 import axiosWithAuth from './utils/axiosWithAuth';
 
-export const requestRegistration = (username, password, firstName, lastName) =>
+export const requestRegistration = ({
+  username,
+  password,
+  firstName,
+  lastName,
+}) =>
   axiosWithAuth().post('/register', {
     username,
     password,
