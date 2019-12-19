@@ -1,34 +1,31 @@
 // React
 import React from 'react';
 // UI
-import {
-  ThemeProvider,
-  CssBaseline,
-  Container,
-  Typography,
-} from '@material-ui/core';
+import { ThemeProvider, CssBaseline, Container } from '@material-ui/core';
 // Routing
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import PrivateRoute from '../features/auth/PrivateRoute';
 // Theme
 import theme from './theme';
-// Dashboard
-import Dashboard from '../features/dashboard/view/Dashboard';
+// Navbar
+import Navbar from './Navbar';
+// Components
+import ViewDashboard from '../features/dashboard/view/ViewDashboard';
+import ViewGraph from '../features/graph/ViewGraph';
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Container>
-      <Typography align="center" color="textPrimary" variant="h1">
-        Spider Graph
-      </Typography>
+    <Router>
+      <Navbar />
+      <Container>
+        <ViewGraph />
 
-      <Router>
         <Switch>
-          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
         </Switch>
-      </Router>
-    </Container>
+      </Container>
+    </Router>
   </ThemeProvider>
 );
 

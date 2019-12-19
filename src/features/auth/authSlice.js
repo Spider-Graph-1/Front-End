@@ -4,8 +4,8 @@ import { requestRegistration, requestAuthentication } from '../../api/auth';
 const initialState = {
   authenticating: false,
   authenticated: false,
-  success: {},
-  error: {},
+  success: null,
+  error: null,
 };
 
 const authenticateUser = createSlice({
@@ -23,20 +23,24 @@ const authenticateUser = createSlice({
         ...state,
         authenticated: true,
         success: JSON.parse(action.payload),
+        error: null,
         authenticating: false,
       };
     },
     authenticateUserError(state, action) {
       return {
         ...state,
-        authenticating: false,
+        success: null,
         error: JSON.parse(action.payload),
+        authenticating: false,
       };
     },
     unAuthenticateUser(state) {
       return {
         ...state,
         authenticated: false,
+        success: null,
+        error: null,
       };
     },
   },

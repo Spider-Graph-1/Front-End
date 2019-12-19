@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-const Dashboard = () => (
+const ViewGraph = () => (
   <Typography align="center" color="textPrimary" variant="h1">
-    Dashboard
+    Graph
   </Typography>
 );
 
-export default Dashboard;
+export default ViewGraph;
