@@ -7,6 +7,10 @@ import {
   Container,
   Typography,
 } from '@material-ui/core';
+// Routing
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import PrivateRoute from '../features/auth/PrivateRoute';
+// Theme
 import theme from './theme';
 
 const App = () => (
@@ -17,6 +21,12 @@ const App = () => (
         Spider Graph
       </Typography>
     </Container>
+
+    <Router>
+      <Switch>
+        <PrivateRoute exact path="/graphs" component="" />
+      </Switch>
+    </Router>
   </ThemeProvider>
 );
 
