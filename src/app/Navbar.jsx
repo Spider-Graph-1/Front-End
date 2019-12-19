@@ -49,7 +49,7 @@ const Navbar = () => {
           <>
             <Button
               component={RouterLink}
-              to="/login"
+              to="/register"
               variant="contained"
               color="primary"
               className={classes.navButton}
