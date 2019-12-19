@@ -1,5 +1,35 @@
 # Spider Graph Front End
 
+## Rough Outline for Project Structure
+```bash
+src
+├── api
+│   ├── auth.js
+│   └── utils
+│       └── axiosWithAuth.js
+├── app
+│   ├── App.jsx
+│   ├── rootReducer.js
+│   ├── store.js
+│   └── theme.js
+├── features
+│   ├── auth
+│   │   ├── login
+│   │   ├── logout
+│   │   └── register
+│   ├── chart
+│   │   ├── delete
+│   │   ├── edit
+│   │   │   ├── data
+│   │   │   └── style
+│   │   ├── export
+│   │   └── save
+│   └── dashboard
+│       ├── delete
+│       └── view
+└── index.jsx
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
