@@ -1,11 +1,11 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-import { deepOrange, lightBlue } from '@material-ui/core/colors';
+import { blueGrey, deepOrange } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary: deepOrange,
-    secondary: lightBlue,
+    primary: blueGrey,
+    secondary: deepOrange,
   },
 });
 
