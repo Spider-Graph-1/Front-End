@@ -12,7 +12,7 @@ import Navbar from './Navbar';
 // Components
 import ViewDashboard from '../features/dashboard/view/ViewDashboard';
 // import ViewGraph from '../features/graph/ViewGraph';
-import BrettApp from './BrettApp';
+import BrettApp from './Brett/BrettApp';
 
 const App = () => (
   <ThemeProvider theme={theme}>

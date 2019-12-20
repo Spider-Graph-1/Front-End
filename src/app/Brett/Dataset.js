@@ -7,10 +7,14 @@ function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
   };
 
   const changeValue = (event) => {
-    var b = event.target.value;
-    const a = Number(b);
-    setNumbers([...numbers, a]);
-    console.log(numbers);
+    setNumbers({
+      ...numbers,
+      [event.target.name]: event.target.value,
+    });
+    // var b = event.target.value;
+    // const a = Number(b);
+    // setNumbers([...numbers, a]);
+    console.log(`numbers: ${numbers}`);
   };
 
   return (
@@ -21,12 +25,12 @@ function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
         type="text"
         placeholder="Add Title Here"
         onChange={addLabel}
-      ></input>
-      {axis.map((item) => {
+      />
+      {axis.map((item, id) => {
         return (
           <>
             <label htmlFor="example">{item}</label>
-            <input name="example" type="text" onChange={changeValue}></input>
+            <input name={id} type="number" step="0.01" onChange={changeValue} />
           </>
         );
       })}

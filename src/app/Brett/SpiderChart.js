@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
 
 function SpiderChart({ title, axis, datasets }) {
   const data = {
     labels: axis,
-    datasets: datasets,
+    datasets,
   };
   const options = {
     legend: {
@@ -20,6 +20,12 @@ function SpiderChart({ title, axis, datasets }) {
       },
     },
   };
+
+  useEffect(() => {
+    console.log(`datasets: ${datasets}`);
+    console.log(`labels: ${axis}`);
+  }, [axis, datasets]);
+
   return <Radar data={data} options={options} />;
 }
 

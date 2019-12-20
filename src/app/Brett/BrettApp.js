@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import SpiderChart from './SpiderChart.js';
 import CreateChart from './CreateChart';
 import Dataset from './Dataset';
@@ -33,14 +33,14 @@ function App() {
   const addToDatasets = (event) => {
     event.preventDefault();
     console.log('Before', datasets);
-    setDatasets([...datasets, { label: label, data: [...numbers, numbers] }]);
+    setDatasets([...datasets, { label, data: Object.values(numbers) }]);
 
     console.log('After', datasets);
   };
 
   useEffect(() => {
-    console.log('Axis', axis);
-  }, [axis]);
+    console.log('Numbers:', numbers);
+  }, [numbers]);
   return (
     <div className="App">
       <SpiderChart axis={axis} title={title} datasets={datasets} />
