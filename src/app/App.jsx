@@ -11,7 +11,8 @@ import theme from './theme';
 import Navbar from './Navbar';
 // Components
 import ViewDashboard from '../features/dashboard/view/ViewDashboard';
-import ViewGraph from '../features/graph/ViewGraph';
+// import ViewGraph from '../features/graph/ViewGraph';
+import BrettApp from './BrettApp';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -19,8 +20,8 @@ const App = () => (
     <Router>
       <Navbar />
       <Container>
-        <ViewGraph />
-
+        {/* <ViewGraph />*/}
+        <BrettApp />
         <Switch>
           <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
         </Switch>
