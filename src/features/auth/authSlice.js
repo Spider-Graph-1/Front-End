@@ -4,6 +4,7 @@ import { requestRegistration, requestAuthentication } from '../../api/auth';
 const initialState = {
   authenticating: false,
   authenticated: false,
+  returningUser: false,
   success: null,
   error: null,
 };
@@ -39,13 +40,15 @@ const authenticateUser = createSlice({
       return {
         ...state,
         authenticated: false,
+        returningUser: true,
         success: null,
         error: null,
       };
     },
-    clearAuthenticationAttempt() {
+    setReturningUser(state, action) {
       return {
-        initialState,
+        ...state,
+        returningUser: action.payload,
       };
     },
   },
@@ -56,7 +59,7 @@ export const {
   authenticateUserSuccess,
   authenticateUserError,
   unAuthenticateUser,
-  clearAuthenticationAttempt,
+  setReturningUser,
 } = authenticateUser.actions;
 
 export default authenticateUser.reducer;

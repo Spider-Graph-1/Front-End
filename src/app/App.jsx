@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React from 'react';
 // UI
 import {
   ThemeProvider,
@@ -30,8 +30,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const App = () => {
-  const { authenticated } = useSelector((state) => state.auth);
-  const [returningUser, setReturningUser] = useState(false);
+  const { authenticated, returningUser } = useSelector((state) => state.auth);
   const classes = useStyles();
 
   return (
@@ -50,18 +49,12 @@ const App = () => {
             Spider Graph
           </Typography>
         )}
-        <Container>
+        <Container maxWidth="sm">
           <Switch>
             <Route
               exact
               path="/"
-              render={() =>
-                returningUser ? (
-                  <Login setReturningUser={setReturningUser} />
-                ) : (
-                  <Register setReturningUser={setReturningUser} />
-                )
-              }
+              component={returningUser ? Login : Register}
             />
             <PrivateRoute exact path="/dashboard" component={BrettApp} />
           </Switch>

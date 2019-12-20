@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { authenticate } from './authSlice';
+import { authenticate, setReturningUser } from './authSlice';
 import useAuthForm from './useAuthForm';
 
 const initialFormValues = {
@@ -15,7 +15,7 @@ const initialFormValues = {
   password: '',
 };
 
-const Login = ({ setReturningUser }) => {
+const Login = () => {
   const {
     dispatch,
     formValues,
@@ -91,7 +91,7 @@ const Login = ({ setReturningUser }) => {
               Submit
             </Button>
             <Button
-              onClick={() => setReturningUser(false)}
+              onClick={() => dispatch(setReturningUser(false))}
               variant="contained"
               color="secondary"
               className={classes.formButton}
