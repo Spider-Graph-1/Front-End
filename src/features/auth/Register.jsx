@@ -4,12 +4,12 @@ import {
   Button,
   CircularProgress,
   Drawer,
-  TextField,
   makeStyles,
+  TextField,
   Typography,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { authenticate, clearAuthenticationAttempt } from '../authSlice';
+import { clearAuthenticationAttempt, register } from './authSlice';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -35,11 +35,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFormValues = {
+  firstName: '',
+  lastName: '',
   username: '',
   password: '',
 };
 
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const { authenticating, success, error } = useSelector((state) => state.auth);
 
@@ -63,11 +65,13 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(authenticate(formValues));
+    dispatch(register(formValues));
   };
 
   useEffect(() => {
-    success && toggleDrawer();
+    if (success) {
+      toggleDrawer();
+    }
   }, [success, toggleDrawer]);
 
   return (
@@ -75,10 +79,10 @@ const Login = () => {
       <Button
         onClick={() => setIsOpen(true)}
         variant="contained"
-        color="secondary"
+        color="primary"
         className={classes.navButton}
       >
-        Login
+        Register
       </Button>
 
       <Drawer anchor="right" open={isOpen} onClose={toggleDrawer}>
@@ -89,7 +93,7 @@ const Login = () => {
             align="center"
             className={classes.title}
           >
-            Login
+            Register
           </Typography>
           <Box
             component="form"
@@ -99,11 +103,11 @@ const Login = () => {
           >
             <TextField
               required
-              error={error}
-              name="username"
-              defaultValue={formValues.username}
-              label="Username"
-              helperText={error && 'Login Failed'}
+              error={error && true}
+              name="firstName"
+              defaultValue={formValues.firstName}
+              label="First Name"
+              helperText={error && 'Registration Failed'}
               variant="filled"
               color="secondary"
               onChange={handleChange}
@@ -111,12 +115,36 @@ const Login = () => {
             />
             <TextField
               required
-              error={error}
+              error={error && true}
+              name="lastName"
+              defaultValue={formValues.lastName}
+              label="Last Name"
+              helperText={error && 'Registration Failed'}
+              variant="filled"
+              color="secondary"
+              onChange={handleChange}
+              className={classes.formField}
+            />
+            <TextField
+              required
+              error={error && true}
+              name="username"
+              defaultValue={formValues.username}
+              label="Username"
+              helperText={error && 'Registration Failed'}
+              variant="filled"
+              color="secondary"
+              onChange={handleChange}
+              className={classes.formField}
+            />
+            <TextField
+              required
+              error={error && true}
               name="password"
               type="password"
               defaultValue={formValues.password}
               label="Password"
-              helperText={error && 'Login Failed'}
+              helperText={error && 'Registration Failed'}
               variant="filled"
               color="secondary"
               onChange={handleChange}
@@ -156,4 +184,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

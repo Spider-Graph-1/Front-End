@@ -6,14 +6,15 @@ import {
   Toolbar,
   Typography,
   Button,
-  Link,
   makeStyles,
 } from '@material-ui/core';
 // Routing
 import { Link as RouterLink } from 'react-router-dom';
 // Redux
 import { useSelector } from 'react-redux';
-import Login from '../features/auth/login/Login';
+import Login from '../features/auth/Login';
+import Register from '../features/auth/Register';
+import Logout from '../features/auth/Logout';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -38,25 +39,18 @@ const Navbar = () => {
 
         {authenticated ? (
           <>
-            <Link to="/dashboard" component={RouterLink} variant="primary">
+            <Button
+              to="/dashboard"
+              component={RouterLink}
+              className={classes.navButton}
+            >
               Dashboard
-            </Link>
-            <Button variant="outlined" color="primary">
-              Logout
             </Button>
+            <Logout />
           </>
         ) : (
           <>
-            <Button
-              component={RouterLink}
-              to="/register"
-              variant="contained"
-              color="primary"
-              className={classes.navButton}
-            >
-              Register
-            </Button>
-
+            <Register />
             <Login />
           </>
         )}
