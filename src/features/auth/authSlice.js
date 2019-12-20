@@ -49,6 +49,8 @@ const authenticateUser = createSlice({
       return {
         ...state,
         returningUser: action.payload,
+        success: null,
+        error: null,
       };
     },
   },
