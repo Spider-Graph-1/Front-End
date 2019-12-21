@@ -23,7 +23,7 @@ function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
         placeholder="Add Title Here"
         onChange={addLabel}
       />
-      {axis.map((item, id) => {
+      {Object.values(axis).map((item, id) => {
         return (
           <>
             <label htmlFor="example">{item}</label>
