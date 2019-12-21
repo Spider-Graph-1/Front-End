@@ -24,8 +24,7 @@ import Login from '../features/auth/Login';
 const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: '3rem',
   },
 }));
 
@@ -42,7 +41,7 @@ const App = () => {
         ) : (
           <Typography
             variant="h1"
-            color="textPrimary"
+            color="textSecondary"
             align="center"
             className={classes.title}
           >

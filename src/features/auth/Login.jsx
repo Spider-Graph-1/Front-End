@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Fade,
   Box,
   Button,
   CircularProgress,
@@ -31,77 +32,76 @@ const Login = () => {
   };
 
   return (
-    <Paper className={classes.paper}>
-      <Box py="1.5rem">
-        <Typography
-          variant="h3"
-          color="textPrimary"
-          align="center"
-          className={classes.title}
-        >
-          Login
-        </Typography>
-        <Box
-          component="form"
-          display="flex"
-          flexDirection="column"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={error && true}
-            name="username"
-            defaultValue={formValues.username}
-            label="Username"
-            helperText={error && 'Login Failed'}
-            variant="filled"
-            color="secondary"
-            onChange={handleChange}
-            className={classes.formField}
-          />
-          <TextField
-            required
-            error={error && true}
-            name="password"
-            type="password"
-            defaultValue={formValues.password}
-            label="Password"
-            helperText={error && 'Login Failed'}
-            variant="filled"
-            color="secondary"
-            onChange={handleChange}
-            className={classes.formField}
-          />
-          <Box display="flex" justifyContent="center">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={authenticating}
-              className={classes.formButton}
-              startIcon={
-                authenticating && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )
-              }
-            >
-              Submit
-            </Button>
-            <Button
-              onClick={() => dispatch(setReturningUser(false))}
-              variant="contained"
+    <Fade in timeout={300}>
+      <Paper className={classes.paper}>
+        <Box py="1.5rem">
+          <Typography variant="h3" align="center" className={classes.title}>
+            Login
+          </Typography>
+          <Box
+            component="form"
+            display="flex"
+            flexDirection="column"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              required
+              autoFocus
+              error={error && true}
+              name="username"
+              value={formValues.username}
+              label="Username"
+              helperText={error && 'Login Failed'}
+              variant="filled"
               color="secondary"
-              className={classes.formButton}
-            >
-              Cancel
-            </Button>
+              onChange={handleChange}
+              className={classes.formField}
+            />
+            <TextField
+              required
+              error={error && true}
+              name="password"
+              type="password"
+              value={formValues.password}
+              label="Password"
+              helperText={error && 'Login Failed'}
+              variant="filled"
+              color="secondary"
+              onChange={handleChange}
+              className={classes.formField}
+            />
+
+            <Box display="flex" justifyContent="center">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={authenticating}
+                className={classes.formButton}
+                startIcon={
+                  authenticating && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )
+                }
+              >
+                Submit
+              </Button>
+              <Button
+                onClick={() => dispatch(setReturningUser(false))}
+                variant="contained"
+                color="secondary"
+                className={classes.formButton}
+              >
+                Cancel
+              </Button>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </Paper>
+      </Paper>
+    </Fade>
   );
 };
 
