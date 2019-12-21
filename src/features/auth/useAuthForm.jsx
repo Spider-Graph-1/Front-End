@@ -25,11 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonProgress: {
     color: theme.palette.primary.main,
-    position: 'absolute',
-    insetBlockStart: '50%',
-    insetInlineStart: '50%',
-    marginBlockStart: -12,
-    marginInlineStart: -12,
   },
 }));
 

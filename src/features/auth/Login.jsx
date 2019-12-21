@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { authenticate, setReturningUser } from './authSlice';
+import { login, setReturningUser } from './authSlice';
 import useAuthForm from './useAuthForm';
 
 const initialFormValues = {
@@ -28,7 +28,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(authenticate(formValues));
+    dispatch(login(formValues));
   };
 
   return (

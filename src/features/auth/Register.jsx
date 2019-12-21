@@ -15,7 +15,7 @@ import { register, setReturningUser } from './authSlice';
 import useAuthForm from './useAuthForm';
 
 const initialFormValues = {
-  firstName: '',
+  name: '',
   email: '',
   username: '',
   password: '',
@@ -57,7 +57,7 @@ const Register = () => {
       dispatch(
         register({
           ...formValues,
-          firstName: toTitleCase(formValues.firstName),
+          name: toTitleCase(formValues.name),
         })
       );
     } else {
@@ -82,8 +82,8 @@ const Register = () => {
               required
               autoFocus
               error={error && true}
-              name="firstName"
-              value={formValues.firstName}
+              name="name"
+              value={formValues.name}
               label="First Name"
               helperText={error && 'Registration Failed'}
               variant="filled"

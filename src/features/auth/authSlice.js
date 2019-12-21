@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { requestRegistration, requestAuthentication } from '../../api/auth';
+import { requestRegistration, requestLogin } from '../../api/auth';
 
 const initialState = {
   authenticating: false,
@@ -66,22 +66,23 @@ export const {
 
 export default authenticateUser.reducer;
 
-export const authenticate = (username, password) => async (dispatch) => {
+export const register = (user) => async (dispatch) => {
   dispatch(authenticatingUser());
   try {
-    const login = await requestAuthentication(username, password);
-    localStorage.setItem('token', login.data.payload);
-    dispatch(authenticateUserSuccess(JSON.stringify(login)));
+    const registrationResponse = await requestRegistration(user);
+    localStorage.setItem('token', registrationResponse.data.token);
+    dispatch(authenticateUserSuccess(JSON.stringify(registrationResponse)));
   } catch (error) {
     dispatch(authenticateUserError(JSON.stringify(error)));
   }
 };
 
-export const register = (user) => async (dispatch) => {
+export const login = (user) => async (dispatch) => {
   dispatch(authenticatingUser());
   try {
-    await requestRegistration(user);
-    dispatch(authenticate(user.username, user.password));
+    const loginResponse = await requestLogin(user);
+    localStorage.setItem('token', loginResponse.data.token);
+    dispatch(authenticateUserSuccess(JSON.stringify(loginResponse)));
   } catch (error) {
     dispatch(authenticateUserError(JSON.stringify(error)));
   }
