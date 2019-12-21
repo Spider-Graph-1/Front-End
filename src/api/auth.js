@@ -1,7 +1,8 @@
+import axios from 'axios';
 import axiosWithAuth from './utils/axiosWithAuth';
 
 export const requestRegistration = (user) =>
-  axiosWithAuth().post('/auth/register', {
+  axios.post('/auth/register', {
     user,
   });
 
