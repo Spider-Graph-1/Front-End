@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import SpiderChart from './SpiderChart.js';
-import CreateChart from './CreateChart';
+import GraphTitleAxis from './GraphTitleAxis';
 import Dataset from './Dataset';
+import { Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [formData, setFormData] = useState({ title: '', axe: '' });
@@ -29,7 +31,6 @@ function App() {
     //   data: [16, 10, 15, 14]
     // }
   ]);
-
   const addToDatasets = (event) => {
     event.preventDefault();
     console.log('Before', datasets);
@@ -38,28 +39,48 @@ function App() {
     console.log('After', datasets);
   };
 
-  useEffect(() => {
-    console.log('Numbers:', numbers);
-  }, [numbers]);
+  // useEffect(() => {
+  //   console.log('Numbers:', numbers);
+  //   console.log('axis:', axis);
+  // }, [axis]);
+
   return (
-    <div className="App">
-      <SpiderChart axis={axis} title={title} datasets={datasets} />
-      <CreateChart
-        setAxis={setAxis}
-        setTitle={setTitle}
-        axis={axis}
-        setFormData={setFormData}
-        formData={formData}
-      />
-      <Dataset
-        axis={axis}
-        addToDatasets={addToDatasets}
-        setLabel={setLabel}
-        label={label}
-        setNumbers={setNumbers}
-        numbers={numbers}
-      />
-    </div>
+    <Router>
+      <div>
+        <Route
+          exact
+          path="/dashboard"
+          render={() => (
+            <GraphTitleAxis
+              setAxis={setAxis}
+              setTitle={setTitle}
+              axis={axis}
+              setFormData={setFormData}
+              formData={formData}
+            />
+          )}
+        />
+
+        <div>
+          <Route
+            exact
+            path="/dashboard/chart"
+            render={(renderProps) => (
+              <SpiderChart
+                axis={axis}
+                title={title}
+                datasets={datasets}
+                addToDatasets={addToDatasets}
+                setLabel={setLabel}
+                label={label}
+                setNumbers={setNumbers}
+                numbers={numbers}
+              />
+            )}
+          />
+        </div>
+      </div>
+    </Router>
   );
 }
 
