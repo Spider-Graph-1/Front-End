@@ -13,13 +13,13 @@ import { Link as RouterLink } from 'react-router-dom';
 // Components
 import Logout from '../features/auth/Logout';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
-    fontSize: '1.125rem',
+    fontSize: '1.625rem',
   },
   navButton: {
-    margin: theme.spacing(1),
+    margin: '1rem',
   },
 }));
 

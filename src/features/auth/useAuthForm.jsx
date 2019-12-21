@@ -6,23 +6,30 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
-    margin: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    borderBottom: `2px solid ${theme.palette.primary.main}`,
+    margin: '1rem',
+    paddingBlockEnd: '2rem',
+    borderBlockEnd: `2px solid ${theme.palette.primary.main}`,
   },
   formButton: {
-    margin: theme.spacing(1),
+    margin: '0.75rem',
   },
   formField: {
     margin: '1rem 15%',
   },
+  progressBar: {
+    margin: '10px 0',
+    inlineSize: '100%',
+  },
+  checkIcon: {
+    minInlineSize: '10%',
+  },
   buttonProgress: {
     color: theme.palette.primary.main,
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
+    insetBlockStart: '50%',
+    insetInlineStart: '50%',
+    marginBlockStart: -12,
+    marginInlineStart: -12,
   },
 }));
 
