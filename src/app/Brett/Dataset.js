@@ -11,9 +11,6 @@ function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
       ...numbers,
       [event.target.name]: event.target.value,
     });
-    // var b = event.target.value;
-    // const a = Number(b);
-    // setNumbers([...numbers, a]);
     console.log(`numbers: ${numbers}`);
   };
 
