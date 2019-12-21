@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const axiosWithAuth = () =>
   axios.create({
-    // TODO: point to real backend
-    baseURL: 'http://localhost:5000/api/',
+    baseURL: 'https://spidergraph-backend.herokuapp.com/api',
     headers: {
       Authorization: localStorage.getItem('token'),
     },
