@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
   const numArray = ['', '', '', '', '', '', ''];
-  const [axisData, setAxisData] = useState([]);
+  const [axisData, setAxisData] = useState({});
 
   const newTitle = (event) => {
     // setFormData({ [event.target.name]: event.target.value });
@@ -16,7 +15,8 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
 
   const saveAxis = (event) => {
     // setFormData({ [event.target.name]: event.target.value });
-    setAxisData([...axisData, event.target.value]);
+    // setAxisData([...axisData, event.target.value]);
+    setAxisData({ ...axisData, [event.target.name]: event.target.value });
   };
   const renderAxisField = (event) => {
     setNum(event.target.value);
@@ -33,7 +33,7 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
   // useEffect(() => {
   //   console.log(axis);
   // }, [axis]);
-  //Form here
+  // Form here
   return (
     <div>
       <form id="charty" onSubmit={submitForm}>
@@ -44,7 +44,7 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
           placeholder="Add Title Here"
           // value={formData.title}
           onChange={newTitle}
-        ></input>
+        />
 
         <label htmlFor="numAxis">Select Number of Axis</label>
         <select
@@ -66,11 +66,11 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
                 <>
                   <label htmlFor="axis">Axis {id + 1} title</label>
                   <input
-                    name="axis"
+                    name={id}
                     type="text"
                     placeholder={`Add Axis ${id + 1} Name`}
                     onChange={saveAxis}
-                  ></input>
+                  />
                 </>
               );
             })
