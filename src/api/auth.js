@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosWithAuth from './utils/axiosWithAuth';
 
 export const requestRegistration = (user) =>
-  axios.post('/auth/register', {
+  axios.post('https://spidergraph-backend.herokuapp.com/api/auth/register', {
     user,
   });
 
