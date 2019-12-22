@@ -9,7 +9,12 @@ import {
   makeStyles,
 } from '@material-ui/core';
 // Routing
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PrivateRoute from '../features/auth/PrivateRoute';
 // Theme
@@ -20,6 +25,7 @@ import Navbar from './Navbar';
 import BrettApp from './Brett/BrettApp';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
+// import ViewGraph from '../features/graph/ViewGraph';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -53,7 +59,15 @@ const App = () => {
             <Route
               exact
               path="/"
-              component={returningUser ? Login : Register}
+              render={() => {
+                if (authenticated) {
+                  return <Redirect to="/dashboard" />;
+                }
+                if (returningUser) {
+                  return <Login />;
+                }
+                return <Register />;
+              }}
             />
             <PrivateRoute exact path="/dashboard" component={BrettApp} />
           </Switch>

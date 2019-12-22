@@ -3,7 +3,7 @@ import { requestRegistration, requestLogin } from '../../api/auth';
 
 const initialState = {
   authenticating: false,
-  authenticated: false,
+  authenticated: !!localStorage.getItem('token'),
   returningUser: false,
   success: null,
   error: null,
