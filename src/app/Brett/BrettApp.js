@@ -12,37 +12,15 @@ function App() {
   const [title, setTitle] = useState('This is a Radar Example');
   const [label, setLabel] = useState('Custom Label');
   const [numbers, setNumbers] = useState([]);
-  const [datasets, setDatasets] = useState([
-    // {
-    //   label: "My First dataset",
-    //   backgroundColor: "rgba(255, 87, 51,0.2)",
-    //   pointBackgroundColor: "rgba(220,220,220,1)",
-    //   data: [10, 20, 30, 2]
-    // }
-    // {
-    //   label: "Hidden dataset",
-    //   backgroundColor: "rgba(187, 51, 255 ,0.2)",
-    //   data: [12, 19, 3, 5]
-    // },
-    // {
-    //   label: "My Second dataset",
-    //   backgroundColor: "rgba(255, 255, 51,0.2)",
-    //   pointBackgroundColor: "rgba(151,187,205,1)",
-    //   data: [16, 10, 15, 14]
-    // }
-  ]);
+  const [datasets, setDatasets] = useState([]);
+
   const addToDatasets = (event) => {
     event.preventDefault();
     console.log('Before', datasets);
-    setDatasets([...datasets, { label, data: Object.values(numbers) }]);
-
+    setDatasets([...datasets, { label, data: numbers }]);
+    console.log('this the numbers', numbers);
     console.log('After', datasets);
   };
-
-  // useEffect(() => {
-  //   console.log('Numbers:', numbers);
-  //   console.log('axis:', axis);
-  // }, [axis]);
 
   return (
     <Router>
@@ -50,13 +28,14 @@ function App() {
         <Route
           exact
           path="/dashboard"
-          render={() => (
+          render={(renderProps) => (
             <GraphTitleAxis
               setAxis={setAxis}
               setTitle={setTitle}
               axis={axis}
               setFormData={setFormData}
               formData={formData}
+              {...renderProps}
             />
           )}
         />
@@ -68,6 +47,8 @@ function App() {
             render={(renderProps) => (
               <SpiderChart
                 axis={axis}
+                setAxis={setAxis}
+                setTitle={setTitle}
                 title={title}
                 datasets={datasets}
                 addToDatasets={addToDatasets}
@@ -75,6 +56,7 @@ function App() {
                 label={label}
                 setNumbers={setNumbers}
                 numbers={numbers}
+                history={renderProps.history}
               />
             )}
           />

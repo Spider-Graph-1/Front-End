@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 
-function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
+function GraphTitleAxis({
+  setAxis,
+  axis,
+  setTitle,
+  formData,
+  setFormData,
+  history,
+}) {
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
-  const numArray = ['', '', '', '', '', '', ''];
-  const [axisData, setAxisData] = useState({});
+  const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);
 
   const newTitle = (event) => {
-    // setFormData({ [event.target.name]: event.target.value });
     setTitle(event.target.value);
   };
 
   const saveAxis = (event) => {
-    // setFormData({ [event.target.name]: event.target.value });
-    // setAxisData([...axisData, event.target.value]);
-    setAxisData({ ...axisData, [event.target.name]: event.target.value });
+    let newAxisData = [...axisData];
+    newAxisData[event.target.name] = event.target.value;
+    setAxisData(newAxisData);
   };
   const renderAxisField = (event) => {
     setNum(event.target.value);
@@ -26,14 +30,10 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
   const submitForm = (event) => {
     console.log(axisData);
     event.preventDefault();
-    setAxis(axisData);
-    document.getElementById('charty').reset();
-    // setFormData({ title: "", axe: "" });
+    setAxis(axisData.slice(0, num));
+    history.push('/dashboard/chart');
   };
-  // useEffect(() => {
-  //   console.log(axis);
-  // }, [axis]);
-  // Form here
+
   return (
     <div>
       <form id="charty" onSubmit={submitForm}>
@@ -42,32 +42,26 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
           name="title"
           type="text"
           placeholder="Add Title Here"
-          // value={formData.title}
           onChange={newTitle}
         />
 
         <label htmlFor="numAxis">Select Number of Axis</label>
-        <select
-          name="numAxis"
-          type="select"
-          onChange={renderAxisField}
-          // value={formData.axe}
-        >
+        <select name="numAxis" type="select" onChange={renderAxisField}>
           <option default>Choose an Option</option>
-          <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
           <option value="6">6</option>
         </select>
         {greenlight
-          ? numArray.slice(0, num).map((item, id) => {
+          ? axisData.slice(0, num).map((item, id) => {
               return (
                 <>
                   <label htmlFor="axis">Axis {id + 1} title</label>
                   <input
                     name={id}
                     type="text"
+                    value={item}
                     placeholder={`Add Axis ${id + 1} Name`}
                     onChange={saveAxis}
                   />
@@ -77,7 +71,6 @@ function GraphTitleAxis({ setAxis, axis, setTitle, formData, setFormData }) {
           : null}
         <button type="submit">Create</button>
       </form>
-      <Link to="/dashboard/chart">See Chart</Link>
     </div>
   );
 }
