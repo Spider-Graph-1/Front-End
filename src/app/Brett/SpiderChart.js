@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 function SpiderChart({
   setTitle,
   title,
+  setColor,
   axis,
   setAxis,
   datasets,
@@ -51,6 +52,7 @@ function SpiderChart({
         label={label}
         setNumbers={setNumbers}
         numbers={numbers}
+        setColor={setColor}
       />
       <button onClick={handleBack}>Back</button>
     </div>
