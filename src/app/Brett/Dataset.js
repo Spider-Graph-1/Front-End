@@ -1,21 +1,26 @@
 import React from 'react';
 import { awaitExpression } from '@babel/types';
+import styled from 'styled-components';
 
 function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
+  const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+  `;
+
   const addLabel = (event) => {
     setLabel(event.target.value);
   };
 
   const changeValue = (event) => {
-    setNumbers({
-      ...numbers,
-      [event.target.name]: event.target.value,
-    });
+    let newNumbers = [...numbers];
+    newNumbers[event.target.name] = event.target.value;
+    setNumbers(newNumbers);
     console.log(`numbers: ${numbers}`);
   };
 
   return (
-    <form onSubmit={addToDatasets}>
+    <Form onSubmit={addToDatasets}>
       <label htmlFor="datalabel">Data Label</label>
       <input
         name="datalabel"
@@ -23,17 +28,17 @@ function Dataset({ axis, addToDatasets, setLabel, setNumbers, numbers }) {
         placeholder="Add Title Here"
         onChange={addLabel}
       />
-      {Object.values(axis).map((item, id) => {
+      {axis.map((item, i) => {
         return (
-          <>
+          <React.Fragment key={i}>
             <label htmlFor="example">{item}</label>
-            <input name={id} type="number" step="0.01" onChange={changeValue} />
-          </>
+            <input name={i} type="number" step="0.01" onChange={changeValue} />
+          </React.Fragment>
         );
       })}
 
       <button type="submit">Submit</button>
-    </form>
+    </Form>
   );
 }
 

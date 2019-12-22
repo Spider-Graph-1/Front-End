@@ -4,17 +4,26 @@ import Dataset from './Dataset';
 import { Link } from 'react-router-dom';
 
 function SpiderChart({
+  setTitle,
   title,
   axis,
+  setAxis,
   datasets,
   addToDatasets,
   setLabel,
   label,
   setNumbers,
   numbers,
+  history,
 }) {
+  const handleBack = () => {
+    setAxis([]);
+    setNumbers([]);
+    setTitle('Example Title');
+    history.push('/dashboard');
+  };
   const data = {
-    labels: Object.values(axis),
+    labels: axis,
     datasets,
   };
   const options = {
@@ -32,11 +41,6 @@ function SpiderChart({
     },
   };
 
-  useEffect(() => {
-    console.log(`datasets: ${datasets}`);
-    console.log('axis on spiderchart', axis);
-  }, [axis, datasets]);
-
   return (
     <div>
       <Radar data={data} options={options} />
@@ -48,7 +52,7 @@ function SpiderChart({
         setNumbers={setNumbers}
         numbers={numbers}
       />
-      <Link to="/dashboard">Back</Link>
+      <button onClick={handleBack}>Back</button>
     </div>
   );
 }
