@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import SpiderChart from './SpiderChart.js';
 import GraphTitleAxis from './GraphTitleAxis';
 import Dataset from './Dataset';
-import { Route, Link } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import CreateGraph from '../../features/graph/create/CreateGraph';
 
 function App() {
   const [formData, setFormData] = useState({ title: '', axe: '' });
@@ -30,14 +30,17 @@ function App() {
           exact
           path="/dashboard"
           render={(renderProps) => (
-            <GraphTitleAxis
-              setAxis={setAxis}
-              setTitle={setTitle}
-              axis={axis}
-              setFormData={setFormData}
-              formData={formData}
-              {...renderProps}
-            />
+            <>
+              <GraphTitleAxis
+                setAxis={setAxis}
+                setTitle={setTitle}
+                axis={axis}
+                setFormData={setFormData}
+                formData={formData}
+                {...renderProps}
+              />
+              <CreateGraph />
+            </>
           )}
         />
 
