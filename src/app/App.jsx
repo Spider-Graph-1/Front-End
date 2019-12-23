@@ -25,7 +25,7 @@ import Navbar from './Navbar';
 import BrettApp from './Brett/BrettApp';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
-// import ViewGraph from '../features/graph/ViewGraph';
+import ViewGraph from '../features/graph/ViewGraph';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -54,7 +54,7 @@ const App = () => {
             Spider Graph
           </Typography>
         )}
-        <Container maxWidth="sm">
+        <Container>
           <Switch>
             <Route
               exact
@@ -70,6 +70,7 @@ const App = () => {
               }}
             />
             <PrivateRoute exact path="/dashboard" component={BrettApp} />
+            <PrivateRoute exact path="/graph-demo" component={ViewGraph} />
           </Switch>
         </Container>
       </Router>

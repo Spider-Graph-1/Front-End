@@ -13,13 +13,14 @@ function App() {
   const [label, setLabel] = useState('Custom Label');
   const [numbers, setNumbers] = useState([]);
   const [datasets, setDatasets] = useState([]);
+  const [color, setColor] = useState('#FF0000');
 
   const addToDatasets = (event) => {
     event.preventDefault();
-    console.log('Before', datasets);
-    setDatasets([...datasets, { label, data: numbers }]);
-    console.log('this the numbers', numbers);
-    console.log('After', datasets);
+    setDatasets([
+      ...datasets,
+      { label, data: numbers, backgroundColor: color },
+    ]);
   };
 
   return (
@@ -57,6 +58,7 @@ function App() {
                 setNumbers={setNumbers}
                 numbers={numbers}
                 history={renderProps.history}
+                setColor={setColor}
               />
             )}
           />
