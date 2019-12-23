@@ -3,7 +3,7 @@ import theme from '../../../app/theme';
 
 const initialState = {
   data: {
-    labels: [''],
+    labels: ['', '', ''],
     datasets: [
       {
         label: '',
@@ -64,7 +64,30 @@ const initialState = {
 };
 
 const createGraph = createSlice({
-  name: 'addGraph',
+  name: 'createGraph',
   initialState,
-  reducers: {},
+  reducers: {
+    structureGraph(state, action) {
+      const { labels, title } = action.payload;
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          labels,
+        },
+        options: {
+          ...state.options,
+          title: {
+            ...state.options.title,
+            text: title,
+          },
+        },
+      };
+    },
+  },
 });
+
+export const { structureGraph } = createGraph.actions;
+
+export default createGraph.reducer;

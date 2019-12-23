@@ -10,8 +10,13 @@ import {
   Typography,
   StepLabel,
   Button,
+  DialogActions,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { useDispatch } from 'react-redux';
+import GraphTitleAxis from '../../../app/Brett/GraphTitleAxis';
+import { structureGraph } from './createGraphSlice';
+import Dataset from '../../../app/Brett/Dataset';
 
 const useStyles = makeStyles((theme) => ({
   addButton: {
@@ -30,26 +35,66 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Structure', 'Data', 'Styling'];
 
-const getStepContent = (step) => {
-  switch (step) {
-    case 0:
-      return 'Name your chart and enter how many axis to compare...';
-    case 1:
-      return 'Enter the data to be plotted...';
-    case 2:
-      return 'Customize the graph style...';
-    default:
-      return 'Unknown step';
-  }
+const initialFormValues = {
+  title: '',
+  axes: {
+    axis0: '',
+    axis1: '',
+    axis2: '',
+  },
 };
 
 const CreateGraph = () => {
+  const dispatch = useDispatch();
+
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
   const [activeStep, setActiveStep] = useState(0);
 
+  const [formValues, setFormValues] = useState(initialFormValues);
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return {
+          form: (
+            <GraphTitleAxis
+              formValues={formValues}
+              setFormValues={setFormValues}
+            />
+          ),
+          instruction: 'Name your chart and enter how many axes to compare...',
+        };
+      case 1:
+        return {
+          form: <Dataset />,
+          instruction: 'Enter the data to be plotted...',
+        };
+      case 2:
+        return {
+          form: 'undefined',
+          instruction: 'Customize the graph style...',
+        };
+      default:
+        return { instruction: 'Unknown step' };
+    }
+  };
+
+  const openChartCreator = () => {
+    setFormValues(initialFormValues);
+    setIsOpen(true);
+  };
+
   const handleNext = () => {
+    if (activeStep === 0) {
+      dispatch(
+        structureGraph({
+          title: formValues.title,
+          labels: Object.values(formValues.axes),
+        })
+      );
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -58,8 +103,8 @@ const CreateGraph = () => {
   };
 
   const handleFinish = () => {
-    handleNext();
     setIsOpen(false);
+    setActiveStep(0);
   };
 
   return (
@@ -67,7 +112,7 @@ const CreateGraph = () => {
       <Fab
         color="primary"
         aria-label="add"
-        onClick={() => setIsOpen(true)}
+        onClick={openChartCreator}
         className={classes.addButton}
       >
         <AddIcon />
@@ -85,23 +130,25 @@ const CreateGraph = () => {
               );
             })}
           </Stepper>
-          <>
-            {activeStep === steps.length ? (
-              handleFinish()
-            ) : (
-              <>
+
+          {activeStep === steps.length ? (
+            handleFinish()
+          ) : (
+            <>
+              <DialogContent>{getStepContent(activeStep).form}</DialogContent>
+              <DialogActions>
                 <Typography className={classes.instructions}>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep).instruction}
                 </Typography>
                 {activeStep === 0 ? (
                   <Button
                     onClick={() => setIsOpen(false)}
-                    className={classes.button}
+                    className={classes.dialogButton}
                   >
                     Cancel
                   </Button>
                 ) : (
-                  <Button onClick={handleBack} className={classes.button}>
+                  <Button onClick={handleBack} className={classes.dialogButton}>
                     Back
                   </Button>
                 )}
@@ -109,14 +156,15 @@ const CreateGraph = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  type="submit"
                   onClick={handleNext}
-                  className={classes.button}
+                  className={classes.dialogButton}
                 >
                   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-              </>
-            )}
-          </>
+              </DialogActions>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </>

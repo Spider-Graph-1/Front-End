@@ -1,77 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import { Radar } from 'react-chartjs-2';
+import React from 'react';
 
-function GraphTitleAxis({
-  setAxis,
-  axis,
-  setTitle,
-  formData,
-  setFormData,
-  history,
-}) {
-  const [num, setNum] = useState();
-  const [greenlight, setGreenlight] = useState(false);
-  const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);
-
-  const newTitle = (event) => {
-    setTitle(event.target.value);
+function GraphTitleAxis({ formValues, setFormValues }) {
+  const changeTitle = (event) => {
+    setFormValues({
+      ...formValues,
+      title: event.target.value,
+    });
   };
 
-  const saveAxis = (event) => {
-    let newAxisData = [...axisData];
-    newAxisData[event.target.name] = event.target.value;
-    setAxisData(newAxisData);
+  const changeAxis = (event) => {
+    setFormValues({
+      ...formValues,
+      axes: {
+        ...formValues.axes,
+        [event.target.name]: event.target.value,
+      },
+    });
   };
-  const renderAxisField = (event) => {
-    setNum(event.target.value);
-    console.log(num);
-    setGreenlight(true);
-  };
-  const submitForm = (event) => {
-    console.log(axisData);
-    event.preventDefault();
-    setAxis(axisData.slice(0, num));
-    history.push('/dashboard/chart');
+
+  const removeAxis = (keyToRemove) => {
+    const filtered = Object.keys(formValues.axes)
+      .filter((key) => key !== keyToRemove)
+      .reduce((obj, key) => {
+        return {
+          ...obj,
+          [key]: formValues.axes[key],
+        };
+      }, {});
+
+    setFormValues({ ...formValues, axes: filtered });
   };
 
   return (
-    <div>
-      <form id="charty" onSubmit={submitForm}>
-        <label htmlFor="title">Graph Title:</label>
-        <input
-          name="title"
-          type="text"
-          placeholder="Add Title Here"
-          onChange={newTitle}
-        />
+    <form id="charty">
+      <label htmlFor="title">Graph Title:</label>
+      <input
+        required
+        id="title"
+        name="title"
+        type="text"
+        value={formValues.title}
+        onChange={changeTitle}
+      />
 
-        <label htmlFor="numAxis">Select Number of Axis</label>
-        <select name="numAxis" type="select" onChange={renderAxisField}>
-          <option default>Choose an Option</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-        {greenlight
-          ? axisData.slice(0, num).map((item, id) => {
-              return (
-                <>
-                  <label htmlFor="axis">Axis {id + 1} title</label>
-                  <input
-                    name={id}
-                    type="text"
-                    value={item}
-                    placeholder={`Add Axis ${id + 1} Name`}
-                    onChange={saveAxis}
-                  />
-                </>
-              );
-            })
-          : null}
-        <button type="submit">Create</button>
-      </form>
-    </div>
+      {Array.from(Array(Object.keys(formValues.axes).length), (item, index) => {
+        if (index < 3) {
+          return (
+            <div key={index}>
+              <label htmlFor={`axis${index}`}>Axis {index + 1} title</label>
+              <input
+                id={`axis${index}`}
+                name={`axis${index}`}
+                type="text"
+                value={formValues.axes[`axis${index}`]}
+                onChange={changeAxis}
+              />
+            </div>
+          );
+        }
+        return (
+          <div key={index}>
+            <label htmlFor={`axis${index}`}>Axis {index + 1} title</label>
+            <input
+              id={`axis${index}`}
+              name={`axis${index}`}
+              type="text"
+              value={formValues.axes[`axis${index}`]}
+              onChange={changeAxis}
+            />
+            <button type="button" onClick={() => removeAxis(`axis${index}`)}>
+              -
+            </button>
+          </div>
+        );
+      })}
+
+      <button
+        type="button"
+        onClick={() =>
+          setFormValues({
+            ...formValues,
+            axes: {
+              ...formValues.axes,
+              [`axis${Object.keys(formValues.axes).length}`]: '',
+            },
+          })
+        }
+      >
+        Add Axis
+      </button>
+    </form>
   );
 }
 

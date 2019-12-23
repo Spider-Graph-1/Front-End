@@ -31,14 +31,11 @@ function App() {
           path="/dashboard"
           render={(renderProps) => (
             <>
-              <GraphTitleAxis
-                setAxis={setAxis}
-                setTitle={setTitle}
-                axis={axis}
-                setFormData={setFormData}
-                formData={formData}
-                {...renderProps}
-              />
+              {/*<GraphTitleAxis*/}
+              {/*  setFormData={setFormData}*/}
+              {/*  formData={formData}*/}
+              {/*  {...renderProps}*/}
+              {/*/>*/}
               <CreateGraph />
             </>
           )}
