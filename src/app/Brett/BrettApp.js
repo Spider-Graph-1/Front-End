@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import SpiderChart from './SpiderChart.js';
-import GraphTitleAxis from './GraphTitleAxis';
-import Dataset from './Dataset';
+import StructureForm from '../../features/graph/create/StructureForm';
+import DatasetsForm from '../../features/graph/create/DatasetsForm';
 import CreateGraph from '../../features/graph/create/CreateGraph';
 import ViewGraph from '../../features/graph/ViewGraph';
 

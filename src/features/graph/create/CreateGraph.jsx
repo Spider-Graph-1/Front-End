@@ -15,9 +15,9 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import GraphTitleAxis from '../../../app/Brett/GraphTitleAxis';
+import StructureForm from './StructureForm';
 import { structureGraph, addGraphData } from './createGraphSlice';
-import Dataset from '../../../app/Brett/Dataset';
+import DatasetsForm from './DatasetsForm';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -99,7 +99,7 @@ const CreateGraph = () => {
       case 0:
         return {
           form: (
-            <GraphTitleAxis
+            <StructureForm
               classes={classes}
               setIsOpen={setIsOpen}
               setActiveStep={setActiveStep}
@@ -110,10 +110,7 @@ const CreateGraph = () => {
       case 1:
         return {
           form: (
-            <Dataset
-              formValues={dataFormValues}
-              setFormValues={setDataFormValues}
-            />
+            <DatasetsForm classes={classes} setActiveStep={setActiveStep} />
           ),
           instruction: 'Enter the data to be plotted...',
         };

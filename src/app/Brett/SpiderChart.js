@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-import Dataset from './Dataset';
+import DatasetsForm from '../../features/graph/create/DatasetsForm';
 
 function SpiderChart({
   setTitle,
@@ -50,7 +50,7 @@ function SpiderChart({
   return (
     <div>
       <Radar data={data} options={options} />
-      <Dataset
+      <DatasetsForm
         axis={axis}
         addToDatasets={addToDatasets}
         setLabel={setLabel}

@@ -5,7 +5,7 @@ const initialState = {
   datasets: [
     {
       label: '',
-      data: [0],
+      data: [],
     },
   ],
   title: '',
@@ -25,14 +25,14 @@ const createGraph = createSlice({
       };
     },
     addGraphData(state, action) {
-      const { dataSetLabel, data } = action.payload;
+      const { label, data } = action.payload;
 
       return {
         ...state,
         datasets: [
           {
             ...state.datasets[0],
-            label: dataSetLabel,
+            label,
             data,
           },
         ],

@@ -23,17 +23,6 @@ const ViewGraph = () => {
         pointHoverBorderColor: 'rgba(179,181,198,1)',
         data: datasets[0].data,
       },
-      {
-        label: 'yo',
-        backgroundColor: 'rgba(179,181,198,0.2)',
-        borderColor: 'rgba(179,181,198,1)',
-        borderDash: [5, 5],
-        pointBackgroundColor: 'rgba(179,181,198,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(179,181,198,1)',
-        data: [52, 24, 65],
-      },
     ],
   };
 

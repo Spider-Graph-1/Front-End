@@ -8,9 +8,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { structureGraph } from '../../features/graph/create/createGraphSlice';
+import { structureGraph } from './createGraphSlice';
+import useRequiredValidation from '../../../utils/useRequiredValidation';
 
-function GraphTitleAxis({ classes, setIsOpen, setActiveStep }) {
+function StructureForm({ classes, setIsOpen, setActiveStep }) {
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -21,13 +22,7 @@ function GraphTitleAxis({ classes, setIsOpen, setActiveStep }) {
     axes: labels,
   });
 
-  useEffect(() => {
-    if (Object.values(formValues.axes).every((value) => value !== '')) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [formValues.axes]);
+  useRequiredValidation(formValues.axes, formValues.title, setIsDisabled);
 
   const changeTitle = (event) => {
     setFormValues({
@@ -45,11 +40,11 @@ function GraphTitleAxis({ classes, setIsOpen, setActiveStep }) {
     });
   };
 
-  const removeAxis = (keyToRemove) => {
+  const removeAxis = (axisToRemove) => {
     setFormValues({
       ...formValues,
       axes: formValues.axes.filter(
-        (axis) => formValues.axes.indexOf(axis) !== keyToRemove
+        (axis) => formValues.axes.indexOf(axis) !== axisToRemove
       ),
     });
   };
@@ -185,4 +180,4 @@ function GraphTitleAxis({ classes, setIsOpen, setActiveStep }) {
   );
 }
 
-export default GraphTitleAxis;
+export default StructureForm;
