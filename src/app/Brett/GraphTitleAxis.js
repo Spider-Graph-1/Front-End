@@ -1,5 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
+import {
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+  Container,
+  Select,
+  InputLabel,
+  MenuItem,
+  makeStyles,
+} from '@material-ui/core';
+
+const useStyles = makeStyles({
+  title: {
+    flexGrow: 1,
+    padding: '1rem',
+  },
+  formField: {
+    margin: '.5rem 15%',
+  },
+  selectLabel: {
+    margin: '0 15%',
+  },
+  formButton: {
+    margin: '.5rem auto',
+    width: '50%',
+  },
+});
 
 function GraphTitleAxis({
   setAxis,
@@ -9,6 +38,7 @@ function GraphTitleAxis({
   setFormData,
   history,
 }) {
+  const classes = useStyles();
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
   const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);
@@ -35,43 +65,76 @@ function GraphTitleAxis({
   };
 
   return (
-    <div>
-      <form id="charty" onSubmit={submitForm}>
-        <label htmlFor="title">Graph Title:</label>
-        <input
-          name="title"
-          type="text"
-          placeholder="Add Title Here"
-          onChange={newTitle}
-        />
+    <Container maxWidth="sm">
+      <Paper>
+        <Box
+          py="1.5rem"
+          component="form"
+          display="flex"
+          flexDirection="column"
+          onSubmit={submitForm}
+        >
+          <Typography variant="h3" align="center" className={classes.title}>
+            Create Chart
+          </Typography>
+          <TextField
+            required
+            name="title"
+            type="text"
+            color="secondary"
+            label="Graph Title"
+            placeholder="Add Title Here"
+            onChange={newTitle}
+            className={classes.formField}
+          />
 
-        <label htmlFor="numAxis">Select Number of Axis</label>
-        <select name="numAxis" type="select" onChange={renderAxisField}>
-          <option default>Choose an Option</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-        {greenlight
-          ? axisData.slice(0, num).map((item, id) => {
-              return (
-                <>
-                  <label htmlFor="axis">Axis {id + 1} title</label>
-                  <input
-                    name={id}
-                    type="text"
-                    value={item}
-                    placeholder={`Add Axis ${id + 1} Name`}
-                    onChange={saveAxis}
-                  />
-                </>
-              );
-            })
-          : null}
-        <button type="submit">Create</button>
-      </form>
-    </div>
+          <InputLabel id="numAxis" className={classes.selectLabel}>
+            Select Number of Axis
+          </InputLabel>
+          <Select
+            labelId="numAxis"
+            type="select"
+            onChange={renderAxisField}
+            required
+            className={classes.formField}
+          >
+            <MenuItem default>Choose an Option</MenuItem>
+            <MenuItem value="2">2</MenuItem>
+            <MenuItem value="3">3</MenuItem>
+            <MenuItem value="4">4</MenuItem>
+            <MenuItem value="5">5</MenuItem>
+            <MenuItem value="6">6</MenuItem>
+          </Select>
+          {greenlight
+            ? axisData.slice(0, num).map((item, id) => {
+                return (
+                  <>
+                    <TextField
+                      required
+                      name={id}
+                      type="text"
+                      label={`Axis ${id + 1} title`}
+                      value={item}
+                      color="secondary"
+                      placeholder={`Add Axis ${id + 1} Name`}
+                      onChange={saveAxis}
+                      className={classes.formField}
+                    />
+                  </>
+                );
+              })
+            : null}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.formButton}
+          >
+            Create
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 

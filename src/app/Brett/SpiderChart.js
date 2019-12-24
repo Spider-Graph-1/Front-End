@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
-import Dataset from './Dataset';
-import { Link } from 'react-router-dom';
+import DataForm from './DataForm';
 
 function SpiderChart({
   setTitle,
   title,
   setColor,
+  color,
   axis,
   setAxis,
   datasets,
+  setDatasets,
   addToDatasets,
   setLabel,
   label,
@@ -21,6 +22,7 @@ function SpiderChart({
     setAxis([]);
     setNumbers([]);
     setTitle('Example Title');
+    setDatasets([]);
     history.push('/dashboard');
   };
   const data = {
@@ -45,7 +47,7 @@ function SpiderChart({
   return (
     <div>
       <Radar data={data} options={options} />
-      <Dataset
+      <DataForm
         axis={axis}
         addToDatasets={addToDatasets}
         setLabel={setLabel}
@@ -53,8 +55,21 @@ function SpiderChart({
         setNumbers={setNumbers}
         numbers={numbers}
         setColor={setColor}
+        color={color}
       />
       <button onClick={handleBack}>Back</button>
+
+      <div>
+        {datasets.map((item) => (
+          <div>
+            <h1>{item.data}</h1>
+            <h1>{item.label}</h1>
+            <h1>{item.backgroundColor}</h1>
+            <button>Edit</button>
+            <button>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

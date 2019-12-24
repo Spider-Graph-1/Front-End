@@ -1,12 +1,14 @@
 import React from 'react';
 import { awaitExpression } from '@babel/types';
 
-function Dataset({
+function DataForm({
   axis,
   addToDatasets,
   setLabel,
+  label,
   setNumbers,
   numbers,
+  color,
   setColor,
 }) {
   const addLabel = (event) => {
@@ -20,10 +22,10 @@ function Dataset({
     console.log(`numbers: ${numbers}`);
   };
   const changeColor = (event) => {
-    let newColor = event.target.value;
-    let opacColor = newColor + '4D';
-    setColor(opacColor);
+    setColor(event.target.value);
   };
+
+  //Setting up how to save the data.
 
   return (
     <form onSubmit={addToDatasets}>
@@ -32,6 +34,7 @@ function Dataset({
         required
         name="datalabel"
         type="text"
+        value={label}
         placeholder="Add Title Here"
         onChange={addLabel}
       />
@@ -40,6 +43,7 @@ function Dataset({
         required
         name="color"
         type="color"
+        value={color}
         onChange={changeColor}
         opacity="0.5"
       />
@@ -63,4 +67,4 @@ function Dataset({
   );
 }
 
-export default Dataset;
+export default DataForm;

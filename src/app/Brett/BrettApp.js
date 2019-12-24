@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import SpiderChart from './SpiderChart.js';
 import GraphTitleAxis from './GraphTitleAxis';
-import Dataset from './Dataset';
+import DataForm from './DataForm';
 import { Route, Link } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -10,10 +10,10 @@ function App() {
   const [formData, setFormData] = useState({ title: '', axe: '' });
   const [axis, setAxis] = useState([]);
   const [title, setTitle] = useState('This is a Radar Example');
-  const [label, setLabel] = useState('Custom Label');
+  const [label, setLabel] = useState();
   const [numbers, setNumbers] = useState([]);
   const [datasets, setDatasets] = useState([]);
-  const [color, setColor] = useState('#FF0000');
+  const [color, setColor] = useState();
 
   const addToDatasets = (event) => {
     event.preventDefault();
@@ -58,7 +58,9 @@ function App() {
                 setNumbers={setNumbers}
                 numbers={numbers}
                 history={renderProps.history}
+                color={color}
                 setColor={setColor}
+                setDatasets={setDatasets}
               />
             )}
           />
