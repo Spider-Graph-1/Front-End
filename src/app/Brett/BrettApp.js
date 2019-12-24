@@ -5,6 +5,7 @@ import SpiderChart from './SpiderChart.js';
 import GraphTitleAxis from './GraphTitleAxis';
 import Dataset from './Dataset';
 import CreateGraph from '../../features/graph/create/CreateGraph';
+import ViewGraph from '../../features/graph/ViewGraph';
 
 function App() {
   const [formData, setFormData] = useState({ title: '', axe: '' });
@@ -31,11 +32,11 @@ function App() {
           path="/dashboard"
           render={(renderProps) => (
             <>
-              {/*<GraphTitleAxis*/}
+              {/* <GraphTitleAxis*/}
               {/*  setFormData={setFormData}*/}
               {/*  formData={formData}*/}
               {/*  {...renderProps}*/}
-              {/*/>*/}
+              {/*/ >*/}
               <CreateGraph />
             </>
           )}

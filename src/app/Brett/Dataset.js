@@ -1,60 +1,59 @@
-import React from 'react';
-import { awaitExpression } from '@babel/types';
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 
-function Dataset({
-  axis,
-  addToDatasets,
-  setLabel,
-  setNumbers,
-  numbers,
-  setColor,
-}) {
-  const addLabel = (event) => {
-    setLabel(event.target.value);
+function Dataset({ formValues, setFormValues }) {
+  const { labels } = useSelector((state) => state.createGraph);
+
+  const changeLabel = (event) => {
+    setFormValues({
+      ...formValues,
+      datasetLabel: event.target.value,
+    });
   };
 
   const changeValue = (event) => {
-    let newNumbers = [...numbers];
-    newNumbers[event.target.name] = event.target.value;
-    setNumbers(newNumbers);
-    console.log(`numbers: ${numbers}`);
-  };
-  const changeColor = (event) => {
-    let newColor = event.target.value;
-    let opacColor = newColor + '4D';
-    setColor(opacColor);
+    const newNumbers = formValues.data;
+    newNumbers[event.target.name] = Number(event.target.value);
+    setFormValues({ ...formValues, data: newNumbers });
   };
 
+  // const changeColor = (event) => {
+  //   let newColor = event.target.value;
+  //   let opacColor = newColor + '4D';
+  //   setColor(opacColor);
+  // };
+
   return (
-    <form onSubmit={addToDatasets}>
-      <label htmlFor="datalabel">Data Label</label>
+    <form>
+      <label htmlFor="datalabel">Dataset Label</label>
       <input
         required
+        id="datalabel"
         name="datalabel"
         type="text"
-        placeholder="Add Title Here"
-        onChange={addLabel}
+        value={formValues.datasetLabel}
+        onChange={changeLabel}
       />
-      <label htmlFor="color">Dataset color:</label>
-      <input
-        required
-        name="color"
-        type="color"
-        onChange={changeColor}
-        opacity="0.5"
-      />
-      {axis.map((item, i) => {
+      {/* <label htmlFor="color">Dataset color:</label>*/}
+      {/* <input*/}
+      {/*  required*/}
+      {/*  name="color"*/}
+      {/*  type="color"*/}
+      {/*  onChange={changeColor}*/}
+      {/*  opacity="0.5"*/}
+      {/*/ >*/}
+      {labels.map((item, index) => {
         return (
-          <React.Fragment key={i}>
-            <label htmlFor={i}>{item}</label>
+          <Fragment key={item}>
+            <label htmlFor={item}>{item}</label>
             <input
               required
-              name={i}
+              name={index}
               type="number"
               step="0.1"
               onChange={changeValue}
             />
-          </React.Fragment>
+          </Fragment>
         );
       })}
 
