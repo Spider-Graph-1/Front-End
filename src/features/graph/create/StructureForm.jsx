@@ -8,8 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { structureGraph } from './createGraphSlice';
-import useRequiredValidation from '../../../utils/useRequiredValidation';
+import { addDataField, structureGraph } from './createGraphSlice';
 
 function StructureForm({ classes, setIsOpen, setActiveStep }) {
   const dispatch = useDispatch();
@@ -22,13 +21,31 @@ function StructureForm({ classes, setIsOpen, setActiveStep }) {
     axes: labels,
   });
 
-  useRequiredValidation(formValues.axes, formValues.title, setIsDisabled);
+  useEffect(() => {
+    if (
+      formValues.axes.every((value) => value !== '') &&
+      formValues.title !== ''
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [formValues.axes, formValues.title]);
 
   const changeTitle = (event) => {
     setFormValues({
       ...formValues,
       title: event.target.value,
     });
+  };
+
+  const addAxis = () => {
+    setFormValues({
+      ...formValues,
+      axes: [...formValues.axes, ''],
+    });
+
+    dispatch(addDataField());
   };
 
   const changeAxis = (event) => {
@@ -127,15 +144,7 @@ function StructureForm({ classes, setIsOpen, setActiveStep }) {
           </Box>
         </Tooltip>
       ) : (
-        <Button
-          type="button"
-          onClick={() =>
-            setFormValues({
-              ...formValues,
-              axes: [...formValues.axes, ''],
-            })
-          }
-        >
+        <Button type="button" onClick={addAxis}>
           Add Axis
         </Button>
       )}

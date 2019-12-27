@@ -7,16 +7,11 @@ import {
   makeStyles,
   Step,
   Stepper,
-  Typography,
   StepLabel,
-  Button,
-  DialogActions,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StructureForm from './StructureForm';
-import { structureGraph, addGraphData } from './createGraphSlice';
 import DatasetsForm from './DatasetsForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,24 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Structure', 'Data', 'Styling'];
-
-const initialStructureFormValues = {
-  title: '',
-  axes: {
-    axis0: '',
-    axis1: '',
-    axis2: '',
-  },
-};
-
-const initialDataFormValues = {
-  datasetLabel: '',
-  data: [0],
-};
+const steps = ['Structure', 'Data'];
 
 const CreateGraph = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const classes = useStyles();
@@ -65,74 +45,24 @@ const CreateGraph = () => {
 
   const [activeStep, setActiveStep] = useState(0);
 
-  const [structureFormValues, setStructureFormValues] = useState(
-    initialStructureFormValues
-  );
-  const [dataFormValues, setDataFormValues] = useState(initialDataFormValues);
-
-  const handleNext = (event) => {
-    event.preventDefault();
-    if (activeStep === 0) {
-      dispatch(
-        structureGraph({
-          title: structureFormValues.title,
-          labels: Object.values(structureFormValues.axes),
-        })
-      );
-    } else if (activeStep === 1) {
-      dispatch(
-        addGraphData({
-          dataSetLabel: dataFormValues.datasetLabel,
-          data: dataFormValues.data,
-        })
-      );
-    }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
   const getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return {
-          form: (
-            <StructureForm
-              classes={classes}
-              setIsOpen={setIsOpen}
-              setActiveStep={setActiveStep}
-            />
-          ),
-          instruction: 'Name your chart and enter how many axes to compare...',
-        };
-      case 1:
-        return {
-          form: (
-            <DatasetsForm classes={classes} setActiveStep={setActiveStep} />
-          ),
-          instruction: 'Enter the data to be plotted...',
-        };
-      case 2:
-        return {
-          form: 'undefined',
-          instruction: 'Customize the graph style...',
-        };
-      default:
-        return { instruction: 'Unknown step' };
+    if (step === 0) {
+      return (
+        <StructureForm
+          classes={classes}
+          setIsOpen={setIsOpen}
+          setActiveStep={setActiveStep}
+        />
+      );
     }
-  };
 
-  const openChartCreator = () => {
-    setStructureFormValues(initialStructureFormValues);
-    setIsOpen(true);
+    return <DatasetsForm classes={classes} setActiveStep={setActiveStep} />;
   };
 
   useEffect(() => {
     if (activeStep === steps.length) {
       setIsOpen(false);
-      setActiveStep(0);
+      // setActiveStep(0);
       history.push('/graph');
     }
   }, [activeStep, history]);
@@ -142,7 +72,7 @@ const CreateGraph = () => {
       <Fab
         color="primary"
         aria-label="add"
-        onClick={openChartCreator}
+        onClick={() => setIsOpen(true)}
         className={classes.addButton}
       >
         <AddIcon />
@@ -161,34 +91,7 @@ const CreateGraph = () => {
             })}
           </Stepper>
 
-          {getStepContent(activeStep).form}
-          <DialogActions>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep).instruction}
-            </Typography>
-            {activeStep === 0 ? (
-              <Button
-                onClick={() => setIsOpen(false)}
-                className={classes.dialogButton}
-              >
-                Cancel
-              </Button>
-            ) : (
-              <Button onClick={handleBack} className={classes.dialogButton}>
-                Back
-              </Button>
-            )}
-
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={handleNext}
-              className={classes.dialogButton}
-            >
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
-          </DialogActions>
+          {getStepContent(activeStep)}
         </DialogContent>
       </Dialog>
     </>

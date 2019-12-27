@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -8,23 +8,14 @@ import useWindowSize from '../../utils/useWindowSize';
 const ViewGraph = () => {
   const size = useWindowSize();
   const { labels, datasets, title } = useSelector((state) => state.createGraph);
+  const [graphData, setGraphData] = useState(null);
 
-  const graphData = {
-    labels,
-    datasets: [
-      {
-        label: datasets[0].label,
-        backgroundColor: 'rgba(179,181,198,0.2)',
-        borderColor: 'rgba(179,181,198,1)',
-        borderDash: [5, 5],
-        pointBackgroundColor: 'rgba(179,181,198,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(179,181,198,1)',
-        data: datasets[0].data,
-      },
-    ],
-  };
+  useEffect(() => {
+    setGraphData({
+      labels,
+      datasets: JSON.parse(JSON.stringify(datasets)),
+    });
+  }, [datasets, labels]);
 
   const graphOptions = {
     maintainAspectRatio: false,
@@ -74,7 +65,7 @@ const ViewGraph = () => {
     <Box
       height={size.width / size.height > 0.8 ? size.height - 200 : size.width}
     >
-      <Radar data={graphData} options={graphOptions} />
+      {graphData && <Radar data={graphData} options={graphOptions} />}
     </Box>
   );
 };

@@ -1,58 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
   DialogActions,
-  TextField,
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import { addGraphData } from './createGraphSlice';
-import useRequiredValidation from '../../../utils/useRequiredValidation';
+import DatasetPanel from './DatasetPanel';
+import { addDataset } from './createGraphSlice';
 
 function DatasetsForm({ classes, setActiveStep }) {
-  const {
-    labels,
-    datasets: [{ label, data }],
-  } = useSelector((state) => state.createGraph);
   const dispatch = useDispatch();
+  const { datasets } = useSelector((state) => state.createGraph);
+
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const [formValues, setFormValues] = useState({
-    label,
-    data,
-  });
-
-  useRequiredValidation(formValues.data, formValues.label, setIsDisabled);
-
-  const changeLabel = (event) => {
-    setFormValues({
-      ...formValues,
-      label: event.target.value,
+  useEffect(() => {
+    datasets.forEach((dataset) => {
+      if (dataset.data.every((value) => value !== '') && dataset.label !== '') {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
     });
-  };
-
-  const changeValue = (event) => {
-    setFormValues({
-      ...formValues,
-      data: Object.assign([...formValues.data], {
-        [Number(event.target.name)]: event.target.value,
-      }),
-    });
-  };
+  }, [datasets]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    dispatch(
-      addGraphData({
-        label: formValues.label,
-        data: formValues.data,
-      })
-    );
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   return (
@@ -63,50 +43,17 @@ function DatasetsForm({ classes, setActiveStep }) {
       pt={1}
       onSubmit={handleSubmit}
     >
-      <TextField
-        required
-        id="datalabel"
-        name="datalabel"
-        label="Dataset label"
-        type="text"
-        value={formValues.label}
-        variant="filled"
-        color="secondary"
-        fullWidth
-        onChange={changeLabel}
-      />
-
-      {labels.map((value, index) => {
-        return (
-          <Box
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            pt={1}
-          >
-            <TextField
-              required
-              name={index.toString()}
-              type="number"
-              label={`Value for ${value}`}
-              value={formValues.data[index]}
-              variant="filled"
-              color="secondary"
-              fullWidth
-              step="0.1"
-              onChange={changeValue}
-            />
-          </Box>
-        );
-      })}
-
+      {datasets.map((dataset, index) => (
+        <DatasetPanel key={index} index={index} />
+      ))}
+      <Button type="button" onClick={() => dispatch(addDataset())}>
+        Add Dataset
+      </Button>
       <DialogActions>
         <Typography className={classes.instructions}>
           Enter the data to be plotted...
         </Typography>
-        <Button
-          onClick={() => setActiveStep((prevActiveStep) => prevActiveStep - 1)}
-          className={classes.dialogButton}
-        >
+        <Button onClick={handleBack} className={classes.dialogButton}>
           Back
         </Button>
 
@@ -119,7 +66,7 @@ function DatasetsForm({ classes, setActiveStep }) {
                 type="submit"
                 className={classes.dialogButton}
               >
-                Next
+                Finish
               </Button>
             </Box>
           </Tooltip>
@@ -131,7 +78,7 @@ function DatasetsForm({ classes, setActiveStep }) {
             onClick={handleSubmit}
             className={classes.dialogButton}
           >
-            Next
+            Finish
           </Button>
         )}
       </DialogActions>
