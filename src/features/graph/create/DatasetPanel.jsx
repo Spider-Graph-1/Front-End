@@ -12,7 +12,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckIcon from '@material-ui/icons/Check';
-import { changeDatasetData, changeDatasetLabel } from './createGraphSlice';
+import {
+  changeDatasetData,
+  changeDatasetLabel,
+  removeDataset,
+} from './createGraphSlice';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -77,7 +81,12 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
           <CheckIcon color="secondary" className={classes.checkIcon} />
         )}
         {datasets.length > 1 && (
-          <Box component={Button} mx={4} type="button">
+          <Box
+            component={Button}
+            mx={4}
+            type="button"
+            onClick={() => dispatch(removeDataset(index))}
+          >
             Remove
           </Box>
         )}

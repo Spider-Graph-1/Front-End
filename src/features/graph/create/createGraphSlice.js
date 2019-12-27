@@ -67,6 +67,14 @@ const createGraph = createSlice({
         ],
       };
     },
+    removeDataset(state, action) {
+      return {
+        ...state,
+        datasets: state.datasets.filter(
+          (dataset) => state.datasets.indexOf(dataset) !== action.payload
+        ),
+      };
+    },
     changeDatasetLabel(state, action) {
       const { index, label } = action.payload;
 
@@ -100,6 +108,7 @@ export const {
   structureGraph,
   addDataField,
   addDataset,
+  removeDataset,
   changeDatasetLabel,
   changeDatasetData,
 } = createGraph.actions;
