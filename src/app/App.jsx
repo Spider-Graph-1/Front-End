@@ -22,7 +22,7 @@ import theme from './theme';
 // Navbar
 import Navbar from './Navbar';
 // Components
-import BrettApp from './Brett/BrettApp';
+// import BrettApp from './Brett/BrettApp';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
 import ViewGraph from '../features/graph/ViewGraph';
