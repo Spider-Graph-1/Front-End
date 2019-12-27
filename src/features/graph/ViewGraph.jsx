@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,15 @@ import useWindowSize from '../../utils/useWindowSize';
 const ViewGraph = () => {
   const size = useWindowSize();
   const { labels, datasets, title } = useSelector((state) => state.createGraph);
+
+  useEffect(() => {
+    if (title !== '') {
+      localStorage.setItem(
+        'graphState',
+        JSON.stringify({ labels, datasets, title })
+      );
+    }
+  }, [datasets, labels, title]);
 
   const graphData = {
     labels,

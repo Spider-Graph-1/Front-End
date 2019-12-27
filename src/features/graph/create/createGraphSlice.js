@@ -3,21 +3,27 @@ import theme from '../../../app/theme';
 import colors from '../../../utils/colors';
 
 const initialState = {
-  labels: ['', '', ''],
-  datasets: [
-    {
-      label: '',
-      backgroundColor: `${theme.palette.primary.light}40`,
-      borderColor: theme.palette.primary.main,
-      borderDash: [],
-      pointBackgroundColor: theme.palette.primary.dark,
-      pointBorderColor: theme.palette.grey['50'],
-      pointHoverBackgroundColor: theme.palette.grey['50'],
-      pointHoverBorderColor: theme.palette.secondary.dark,
-      data: ['', '', ''],
-    },
-  ],
-  title: '',
+  labels: JSON.parse(localStorage.getItem('graphState'))
+    ? JSON.parse(localStorage.getItem('graphState')).labels
+    : ['', '', ''],
+  datasets: JSON.parse(localStorage.getItem('graphState'))
+    ? JSON.parse(localStorage.getItem('graphState')).datasets
+    : [
+        {
+          label: '',
+          backgroundColor: `${theme.palette.primary.light}40`,
+          borderColor: theme.palette.primary.main,
+          borderDash: [],
+          pointBackgroundColor: theme.palette.primary.dark,
+          pointBorderColor: theme.palette.grey['50'],
+          pointHoverBackgroundColor: theme.palette.grey['50'],
+          pointHoverBorderColor: theme.palette.secondary.dark,
+          data: ['', '', ''],
+        },
+      ],
+  title: JSON.parse(localStorage.getItem('graphState'))
+    ? JSON.parse(localStorage.getItem('graphState')).title
+    : '',
 };
 
 const createGraph = createSlice({
