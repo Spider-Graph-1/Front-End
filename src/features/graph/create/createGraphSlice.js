@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import theme from '../../../app/theme';
+import colors from '../../../utils/colors';
 
 const initialState = {
   labels: ['', '', ''],
   datasets: [
     {
       label: '',
-      backgroundColor: `${theme.palette.primary.light}60`,
+      backgroundColor: `${theme.palette.primary.light}40`,
       borderColor: theme.palette.primary.main,
       borderDash: [],
       pointBackgroundColor: theme.palette.primary.dark,
-      pointBorderColor: theme.palette.primary.contrastText,
-      pointHoverBackgroundColor: theme.palette.secondary.light,
+      pointBorderColor: theme.palette.grey['50'],
+      pointHoverBackgroundColor: theme.palette.grey['50'],
       pointHoverBorderColor: theme.palette.secondary.dark,
       data: ['', '', ''],
     },
@@ -44,19 +45,23 @@ const createGraph = createSlice({
       };
     },
     addDataset(state) {
+      const baseColor = Object.keys(colors)[
+        Math.floor(Math.random() * Object.keys(colors).length - 1) + 1
+      ];
+
       return {
         ...state,
         datasets: [
           ...state.datasets,
           {
             label: '',
-            backgroundColor: 'rgba(179,181,198,0.2)',
-            borderColor: 'rgba(179,181,198,1)',
-            borderDash: [5, 5],
-            pointBackgroundColor: 'rgba(179,181,198,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(179,181,198,1)',
+            backgroundColor: `${colors[baseColor]['500']}40`,
+            borderColor: colors[baseColor]['700'],
+            borderDash: [],
+            pointBackgroundColor: colors[baseColor]['500'],
+            pointBorderColor: colors.grey['50'],
+            pointHoverBackgroundColor: colors.grey['50'],
+            pointHoverBorderColor: colors[baseColor]['700'],
             data: [...Array(state.labels.length)].map(() => ''),
           },
         ],
