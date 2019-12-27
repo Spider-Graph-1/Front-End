@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import SpiderChart from './SpiderChart.js';
 import GraphTitleAxis from './GraphTitleAxis';
 import DataForm from './DataForm';
@@ -30,14 +31,14 @@ function App() {
           exact
           path="/dashboard"
           render={(renderProps) => (
-            <GraphTitleAxis
-              setAxis={setAxis}
-              setTitle={setTitle}
-              axis={axis}
-              setFormData={setFormData}
-              formData={formData}
-              {...renderProps}
-            />
+            <>
+              {/* <GraphTitleAxis*/}
+              {/*  setFormData={setFormData}*/}
+              {/*  formData={formData}*/}
+              {/*  {...renderProps}*/}
+              {/*/ >*/}
+              <CreateGraph />
+            </>
           )}
         />
 

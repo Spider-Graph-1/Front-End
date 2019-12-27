@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import DataForm from './DataForm';
 
 function SpiderChart({
   setTitle,
-  title,
   setColor,
   color,
   axis,
@@ -18,6 +17,12 @@ function SpiderChart({
   numbers,
   history,
 }) {
+  const {
+    data: { labels },
+    options: {
+      title: { text },
+    },
+  } = useSelector((state) => state.createGraph);
   const handleBack = () => {
     setAxis([]);
     setNumbers([]);
@@ -26,7 +31,7 @@ function SpiderChart({
     history.push('/dashboard');
   };
   const data = {
-    labels: axis,
+    labels,
     datasets,
   };
   const options = {
@@ -35,7 +40,7 @@ function SpiderChart({
     },
     title: {
       display: true,
-      text: title,
+      text,
     },
     scale: {
       ticks: {

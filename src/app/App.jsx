@@ -22,10 +22,11 @@ import theme from './theme';
 // Navbar
 import Navbar from './Navbar';
 // Components
-import BrettApp from './Brett/BrettApp';
+// import BrettApp from './Brett/BrettApp';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
 import ViewGraph from '../features/graph/ViewGraph';
+import CreateGraph from '../features/graph/create/CreateGraph';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -69,8 +70,8 @@ const App = () => {
                 return <Register />;
               }}
             />
-            <PrivateRoute exact path="/dashboard" component={BrettApp} />
-            <PrivateRoute exact path="/graph-demo" component={ViewGraph} />
+            <PrivateRoute exact path="/dashboard" component={CreateGraph} />
+            <PrivateRoute exact path="/graph" component={ViewGraph} />
           </Switch>
         </Container>
       </Router>
