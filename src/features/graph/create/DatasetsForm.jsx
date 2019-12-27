@@ -13,6 +13,7 @@ import { addDataset } from './createGraphSlice';
 function DatasetsForm({ classes, setActiveStep }) {
   const dispatch = useDispatch();
   const { datasets } = useSelector((state) => state.createGraph);
+  const [expanded, setExpanded] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -35,6 +36,14 @@ function DatasetsForm({ classes, setActiveStep }) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleAddDataset = () => {
+    dispatch(addDataset());
+  };
+
+  const handleExpansion = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <Box
       component="form"
@@ -44,9 +53,16 @@ function DatasetsForm({ classes, setActiveStep }) {
       onSubmit={handleSubmit}
     >
       {datasets.map((dataset, index) => (
-        <DatasetPanel key={index} index={index} />
+        // eslint-disable-next-line react/no-array-index-key
+        <DatasetPanel
+          key={index}
+          index={index}
+          expanded={expanded}
+          setExpanded={setExpanded}
+          handleExpansion={handleExpansion}
+        />
       ))}
-      <Button type="button" onClick={() => dispatch(addDataset())}>
+      <Button type="button" onClick={handleAddDataset}>
         Add Dataset
       </Button>
       <DialogActions>

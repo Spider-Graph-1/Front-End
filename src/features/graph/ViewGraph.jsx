@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -8,14 +8,11 @@ import useWindowSize from '../../utils/useWindowSize';
 const ViewGraph = () => {
   const size = useWindowSize();
   const { labels, datasets, title } = useSelector((state) => state.createGraph);
-  const [graphData, setGraphData] = useState(null);
 
-  useEffect(() => {
-    setGraphData({
-      labels,
-      datasets: JSON.parse(JSON.stringify(datasets)),
-    });
-  }, [datasets, labels]);
+  const graphData = {
+    labels,
+    datasets: JSON.parse(JSON.stringify(datasets)),
+  };
 
   const graphOptions = {
     maintainAspectRatio: false,
@@ -65,7 +62,7 @@ const ViewGraph = () => {
     <Box
       height={size.width / size.height > 0.8 ? size.height - 200 : size.width}
     >
-      {graphData && <Radar data={graphData} options={graphOptions} />}
+      <Radar data={graphData} options={graphOptions} />
     </Box>
   );
 };

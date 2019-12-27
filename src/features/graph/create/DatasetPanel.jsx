@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
+  Button,
   ExpansionPanel,
   ExpansionPanelSummary,
   Typography,
@@ -10,6 +11,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
+import CheckIcon from '@material-ui/icons/Check';
 import { changeDatasetData, changeDatasetLabel } from './createGraphSlice';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +22,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DatasetPanel = ({ index }) => {
+const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [expanded, setExpanded] = useState(true);
   const { datasets, labels } = useSelector((state) => state.createGraph);
+  const [markedComplete, setMarkedComplete] = useState(false);
+
+  useEffect(() => {
+    if (index === datasets.length - 1) {
+      setExpanded(`panel${index}`);
+    }
+  }, [datasets.length, index, setExpanded]);
+
+  useEffect(() => {
+    if (
+      datasets[index].data.every((value) => value !== '') &&
+      datasets[index].label !== ''
+    ) {
+      setMarkedComplete(true);
+    } else {
+      setMarkedComplete(false);
+    }
+  }, [datasets, index]);
 
   const changeLabel = (event) => {
     dispatch(changeDatasetLabel({ index, label: event.target.value }));
@@ -42,15 +61,26 @@ const DatasetPanel = ({ index }) => {
   };
 
   return (
-    <ExpansionPanel expanded={expanded} onChange={() => setExpanded(!expanded)}>
+    <ExpansionPanel
+      expanded={expanded === `panel${index}`}
+      onChange={handleExpansion(`panel${index}`)}
+    >
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1bh-content"
-        id="panel1bh-header"
+        aria-controls={`panel${index}bh-content`}
+        id={`panel${index}bh-header`}
       >
         <Typography className={classes.heading}>
-          {datasets[index].label}
+          {datasets[index].label || 'Unlabled dataset'}
         </Typography>
+        {markedComplete && (
+          <CheckIcon color="secondary" className={classes.checkIcon} />
+        )}
+        {datasets.length > 1 && (
+          <Box component={Button} mx={4} type="button">
+            Remove
+          </Box>
+        )}
       </ExpansionPanelSummary>
       <Box
         display="flex"

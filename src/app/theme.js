@@ -74,6 +74,12 @@ const theme = createMuiTheme({
         color: blueGrey['600'],
       },
     },
+    MuiExpansionPanelSummary: {
+      content: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
   },
 });
 
