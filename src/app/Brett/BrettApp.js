@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import SpiderChart from './SpiderChart.js';
-import StructureForm from '../../features/graph/create/StructureForm';
-import DatasetsForm from '../../features/graph/create/DatasetsForm';
-import CreateGraph from '../../features/graph/create/CreateGraph';
-import ViewGraph from '../../features/graph/ViewGraph';
+import GraphTitleAxis from './GraphTitleAxis';
+import DataForm from './DataForm';
+import { Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [formData, setFormData] = useState({ title: '', axe: '' });
   const [axis, setAxis] = useState([]);
   const [title, setTitle] = useState('This is a Radar Example');
-  const [label, setLabel] = useState('Custom Label');
+  const [label, setLabel] = useState();
   const [numbers, setNumbers] = useState([]);
   const [datasets, setDatasets] = useState([]);
-  const [color, setColor] = useState('#FF0000');
+  const [color, setColor] = useState();
 
   const addToDatasets = (event) => {
     event.preventDefault();
@@ -59,7 +59,9 @@ function App() {
                 setNumbers={setNumbers}
                 numbers={numbers}
                 history={renderProps.history}
+                color={color}
                 setColor={setColor}
+                setDatasets={setDatasets}
               />
             )}
           />
