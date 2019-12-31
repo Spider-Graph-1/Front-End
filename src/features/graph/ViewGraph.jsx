@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import theme from '../../app/theme';
 import useWindowSize from '../../utils/useWindowSize';
+import EditBar from './edit/EditBar';
 
 const ViewGraph = () => {
   const size = useWindowSize();
   const { labels, datasets, title } = useSelector((state) => state.createGraph);
+
+  useEffect(() => {
+    if (title !== '') {
+      localStorage.setItem(
+        'graphState',
+        JSON.stringify({ labels, datasets, title })
+      );
+    }
+  }, [datasets, labels, title]);
 
   const graphData = {
     labels,
@@ -59,10 +69,15 @@ const ViewGraph = () => {
   };
 
   return (
-    <Box
-      height={size.width / size.height > 0.8 ? size.height - 200 : size.width}
-    >
-      <Radar data={graphData} options={graphOptions} />
+    <Box display="flex" flexDirection="row-reverse" justifyContent="center">
+      <EditBar />
+      <Box
+        width="100%"
+        height={size.width / size.height > 0.8 ? size.height - 100 : size.width}
+        pt={6}
+      >
+        <Radar data={graphData} options={graphOptions} />
+      </Box>
     </Box>
   );
 };

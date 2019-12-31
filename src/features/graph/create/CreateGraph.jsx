@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { useHistory } from 'react-router-dom';
-import StructureForm from './StructureForm';
-import DatasetsForm from './DatasetsForm';
+import Structure from './Structure';
+import Data from './Data';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -48,7 +48,7 @@ const CreateGraph = () => {
   const getStepContent = (step) => {
     if (step === 0) {
       return (
-        <StructureForm
+        <Structure
           classes={classes}
           setIsOpen={setIsOpen}
           setActiveStep={setActiveStep}
@@ -56,13 +56,12 @@ const CreateGraph = () => {
       );
     }
 
-    return <DatasetsForm classes={classes} setActiveStep={setActiveStep} />;
+    return <Data classes={classes} setActiveStep={setActiveStep} />;
   };
 
   useEffect(() => {
     if (activeStep === steps.length) {
       setIsOpen(false);
-      // setActiveStep(0);
       history.push('/graph');
     }
   }, [activeStep, history]);
@@ -71,7 +70,7 @@ const CreateGraph = () => {
     <>
       <Fab
         color="primary"
-        aria-label="add"
+        aria-label="add graph"
         onClick={() => setIsOpen(true)}
         className={classes.addButton}
       >
