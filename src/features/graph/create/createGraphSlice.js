@@ -64,7 +64,7 @@ const createGraph = createSlice({
           {
             label: `Dataset ${state.datasets.length + 1}`,
             backgroundColor: `${colors[baseColor]['500']}40`,
-            borderColor: colors[baseColor]['700'],
+            borderColor: colors[baseColor]['500'],
             borderDash: [],
             pointBackgroundColor: colors[baseColor]['500'],
             pointBorderColor: colors.grey['50'],
@@ -154,6 +154,23 @@ const createGraph = createSlice({
         }),
       };
     },
+
+    changeColor(state, action) {
+      const { index, color } = action.payload;
+
+      return {
+        ...state,
+        datasets: Object.assign([...state.datasets], {
+          [index]: {
+            ...state.datasets[index],
+            borderColor: color.hex,
+            backgroundColor: `${color.hex}40`,
+            pointBackgroundColor: color.hex,
+            pointHoverBorderColor: color.hex,
+          },
+        }),
+      };
+    },
   },
 });
 
@@ -168,6 +185,7 @@ export const {
   removeAxis,
   changeDatasetLabel,
   changeDatasetData,
+  changeColor,
 } = createGraph.actions;
 
 export default createGraph.reducer;

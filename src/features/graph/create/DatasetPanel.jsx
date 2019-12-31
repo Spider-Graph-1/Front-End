@@ -12,7 +12,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckIcon from '@material-ui/icons/Check';
+import { TwitterPicker } from 'react-color';
+import colors from '../../../utils/colors';
 import {
+  changeColor,
   changeDatasetData,
   changeDatasetLabel,
   removeDataset,
@@ -31,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.error.light,
     },
+  },
+
+  colorPicker: {
+    marginBottom: '1rem',
   },
 }));
 
@@ -95,29 +102,40 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
         aria-controls={`panel${index}bh-content`}
         id={`panel${index}bh-header`}
       >
-        <Typography className={classes.heading}>
-          {datasets[index].label || 'Unlabled dataset'}
-        </Typography>
-        {markedComplete && (
-          <CheckIcon color="secondary" className={classes.checkIcon} />
-        )}
-        {datasets.length > 1 && (
-          <Box
-            component={Button}
-            mx={4}
-            type="button"
-            onClick={() => dispatch(removeDataset(index))}
-            className={classes.removeButton}
-          >
-            Remove
-          </Box>
-        )}
+        <Box display="flex" justifyContent="space-between" width="100%">
+          <Typography className={classes.heading}>
+            {datasets[index].label || 'Unlabeled dataset'}
+          </Typography>
+          {markedComplete && (
+            <CheckIcon color="secondary" className={classes.checkIcon} />
+          )}
+          {datasets.length > 1 && (
+            <Box
+              component={Button}
+              mx={4}
+              type="button"
+              onClick={() => dispatch(removeDataset(index))}
+              className={classes.removeButton}
+            >
+              Remove
+            </Box>
+          )}
+        </Box>
       </ExpansionPanelSummary>
       <Box
         display="flex"
         flexDirection="column"
         component={ExpansionPanelDetails}
       >
+        <TwitterPicker
+          name="color"
+          color={datasets[index].borderColor}
+          colors={Object.keys(colors).map((color) => colors[color]['500'])}
+          width={346}
+          triangle="hide"
+          onChangeComplete={(color) => dispatch(changeColor({ index, color }))}
+          className={classes.colorPicker}
+        />
         <TextField
           required
           id={`datalabel${index}`}

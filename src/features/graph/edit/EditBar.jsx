@@ -11,7 +11,7 @@ import {
 import EditData from './EditData';
 import EditStructure from './EditStructure';
 
-const drawerWidth = 480;
+const drawerWidth = 460;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,7 +82,6 @@ const EditBar = () => {
         >
           <Tab label="Structure" {...a11yProps(0)} />
           <Tab label="Data" {...a11yProps(1)} />
-          <Tab label="Styling" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -90,9 +89,6 @@ const EditBar = () => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <EditData />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
       </TabPanel>
     </Drawer>
   );
