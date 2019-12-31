@@ -10,7 +10,7 @@ import {
 import DatasetPanel from './DatasetPanel';
 import { addDataset } from './createGraphSlice';
 
-function DatasetsForm({ classes, setActiveStep }) {
+function Data({ classes, setActiveStep }) {
   const dispatch = useDispatch();
   const { datasets } = useSelector((state) => state.createGraph);
   const [expanded, setExpanded] = useState(false);
@@ -53,8 +53,8 @@ function DatasetsForm({ classes, setActiveStep }) {
       onSubmit={handleSubmit}
     >
       {datasets.map((dataset, index) => (
-        // eslint-disable-next-line react/no-array-index-key
         <DatasetPanel
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
           index={index}
           expanded={expanded}
@@ -102,4 +102,4 @@ function DatasetsForm({ classes, setActiveStep }) {
   );
 }
 
-export default DatasetsForm;
+export default Data;

@@ -39,6 +39,7 @@ const createGraph = createSlice({
         title,
       };
     },
+
     addDataField(state) {
       return {
         ...state,
@@ -50,9 +51,10 @@ const createGraph = createSlice({
         }),
       };
     },
+
     addDataset(state) {
       const baseColor = Object.keys(colors)[
-        Math.floor(Math.random() * Object.keys(colors).length - 1) + 1
+        (state.datasets.length * 3) % Object.keys(colors).length
       ];
 
       return {
@@ -60,7 +62,7 @@ const createGraph = createSlice({
         datasets: [
           ...state.datasets,
           {
-            label: '',
+            label: `Dataset ${state.datasets.length + 1}`,
             backgroundColor: `${colors[baseColor]['500']}40`,
             borderColor: colors[baseColor]['700'],
             borderDash: [],
@@ -73,6 +75,7 @@ const createGraph = createSlice({
         ],
       };
     },
+
     removeDataset(state, action) {
       return {
         ...state,
@@ -81,6 +84,49 @@ const createGraph = createSlice({
         ),
       };
     },
+
+    changeTitle(state, action) {
+      return {
+        ...state,
+        title: action.payload,
+      };
+    },
+
+    addAxis(state) {
+      return {
+        ...state,
+        labels: [...state.labels, ''],
+      };
+    },
+
+    changeAxis(state, action) {
+      const { index, label } = action.payload;
+
+      return {
+        ...state,
+        labels: Object.assign([...state.labels], {
+          [index]: label,
+        }),
+      };
+    },
+
+    removeAxis(state, action) {
+      return {
+        ...state,
+        labels: state.labels.filter(
+          (label) => state.labels.indexOf(label) !== action.payload
+        ),
+        datasets: state.datasets.map((dataset) => {
+          return {
+            ...dataset,
+            data: dataset.data.filter(
+              (value) => dataset.data.indexOf(value) !== action.payload
+            ),
+          };
+        }),
+      };
+    },
+
     changeDatasetLabel(state, action) {
       const { index, label } = action.payload;
 
@@ -94,6 +140,7 @@ const createGraph = createSlice({
         }),
       };
     },
+
     changeDatasetData(state, action) {
       const { index, data } = action.payload;
 
@@ -115,6 +162,10 @@ export const {
   addDataField,
   addDataset,
   removeDataset,
+  changeTitle,
+  addAxis,
+  changeAxis,
+  removeAxis,
   changeDatasetLabel,
   changeDatasetData,
 } = createGraph.actions;

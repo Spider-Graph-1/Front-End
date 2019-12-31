@@ -13,13 +13,18 @@ import { Link as RouterLink } from 'react-router-dom';
 // Components
 import Logout from '../features/auth/Logout';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     fontSize: '1.625rem',
   },
+
   navButton: {
     margin: '1rem',
+  },
+
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
   },
 }));
 
@@ -27,7 +32,7 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" color="default">
+    <AppBar position="fixed" color="default" className={classes.appBar}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Spider Graph

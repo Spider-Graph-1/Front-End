@@ -20,9 +20,17 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   heading: {
-    fontSize: theme.typography.pxToRem(15),
+    fontSize: theme.typography.pxToRem(18),
     flexBasis: '33.33%',
     flexShrink: 0,
+  },
+
+  removeButton: {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.error.contrastText,
+    '&:hover': {
+      backgroundColor: theme.palette.error.light,
+    },
   },
 }));
 
@@ -31,6 +39,7 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
   const dispatch = useDispatch();
   const { datasets, labels } = useSelector((state) => state.createGraph);
   const [markedComplete, setMarkedComplete] = useState(false);
+  const [duplicate, setDuplicate] = useState(false);
 
   useEffect(() => {
     if (index === datasets.length - 1) {
@@ -50,7 +59,19 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
   }, [datasets, index]);
 
   const changeLabel = (event) => {
+    if (datasets.some((dataset) => dataset.label === event.target.value)) {
+      setDuplicate(true);
+    } else {
+      setDuplicate(false);
+    }
     dispatch(changeDatasetLabel({ index, label: event.target.value }));
+  };
+
+  const labelDuplicate = (event) => {
+    if (duplicate) {
+      dispatch(changeDatasetLabel({ index, label: `${event.target.value}*` }));
+      setDuplicate(false);
+    }
   };
 
   const changeValue = (event) => {
@@ -86,6 +107,7 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
             mx={4}
             type="button"
             onClick={() => dispatch(removeDataset(index))}
+            className={classes.removeButton}
           >
             Remove
           </Box>
@@ -105,6 +127,9 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
           value={datasets[index].label}
           variant="filled"
           color="secondary"
+          error={duplicate}
+          helperText={duplicate && 'This dataset label already exists'}
+          onBlur={labelDuplicate}
           fullWidth
           onChange={changeLabel}
         />
