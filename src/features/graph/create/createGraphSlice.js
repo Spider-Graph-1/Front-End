@@ -30,28 +30,6 @@ const createGraph = createSlice({
   name: 'createGraph',
   initialState,
   reducers: {
-    structureGraph(state, action) {
-      const { labels, title } = action.payload;
-
-      return {
-        ...state,
-        labels,
-        title,
-      };
-    },
-
-    addDataField(state) {
-      return {
-        ...state,
-        datasets: state.datasets.map((dataset) => {
-          return {
-            ...dataset,
-            data: [...dataset.data, ''],
-          };
-        }),
-      };
-    },
-
     addDataset(state) {
       const baseColor = Object.keys(colors)[
         (state.datasets.length * 3) % Object.keys(colors).length
@@ -96,6 +74,12 @@ const createGraph = createSlice({
       return {
         ...state,
         labels: [...state.labels, ''],
+        datasets: state.datasets.map((dataset) => {
+          return {
+            ...dataset,
+            data: [...dataset.data, ''],
+          };
+        }),
       };
     },
 
@@ -175,8 +159,6 @@ const createGraph = createSlice({
 });
 
 export const {
-  structureGraph,
-  addDataField,
   addDataset,
   removeDataset,
   changeTitle,

@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(18),
     flexBasis: '33.33%',
     flexShrink: 0,
+    marginRight: '1rem',
   },
 
   removeButton: {
@@ -103,12 +104,14 @@ const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
         id={`panel${index}bh-header`}
       >
         <Box display="flex" justifyContent="space-between" width="100%">
-          <Typography className={classes.heading}>
-            {datasets[index].label || 'Unlabeled dataset'}
-          </Typography>
-          {markedComplete && (
-            <CheckIcon color="secondary" className={classes.checkIcon} />
-          )}
+          <Box display="flex">
+            <Typography className={classes.heading}>
+              {datasets[index].label || 'Unlabeled dataset'}
+            </Typography>
+            {markedComplete && (
+              <CheckIcon color="secondary" className={classes.checkIcon} />
+            )}
+          </Box>
           {datasets.length > 1 && (
             <Box
               component={Button}
