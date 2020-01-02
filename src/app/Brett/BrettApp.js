@@ -2,13 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import SpiderChart from './SpiderChart.js';
-import GraphTitleAxis from './GraphTitleAxis';
-import DataForm from './DataForm';
-import { Route, Link } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
-  const [formData, setFormData] = useState({ title: '', axe: '' });
   const [axis, setAxis] = useState([]);
   const [title, setTitle] = useState('This is a Radar Example');
   const [label, setLabel] = useState();
