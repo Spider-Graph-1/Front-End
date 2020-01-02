@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import DatasetPanel from './DatasetPanel';
-import { addDataset } from './createGraphSlice';
+import { addDataset } from '../graphSlice';
 
 function Data({ classes, setActiveStep }) {
   const dispatch = useDispatch();

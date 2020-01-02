@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import DatasetPanel from '../create/DatasetPanel';
-import { addDataset } from '../create/createGraphSlice';
+import { addDataset } from '../graphSlice';
 
 const EditData = () => {
   const dispatch = useDispatch();

@@ -26,7 +26,7 @@ import Navbar from './Navbar';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
 import ViewGraph from '../features/graph/ViewGraph';
-import CreateGraph from '../features/graph/create/CreateGraph';
+import ViewDashboard from '../features/dashboard/view/ViewDashboard';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -70,7 +70,7 @@ const App = () => {
                 return <Register />;
               }}
             />
-            <PrivateRoute exact path="/dashboard" component={CreateGraph} />
+            <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
             <PrivateRoute exact path="/graph" component={ViewGraph} />
           </Switch>
         </Container>
