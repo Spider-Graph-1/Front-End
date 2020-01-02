@@ -19,7 +19,7 @@ import {
   changeDatasetData,
   changeDatasetLabel,
   removeDataset,
-} from './createGraphSlice';
+} from '../graphSlice';
 
 const useStyles = makeStyles((theme) => ({
   heading: {

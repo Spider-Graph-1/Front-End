@@ -26,14 +26,11 @@ function App() {
           exact
           path="/dashboard"
           render={(renderProps) => (
-            <>
-              {/* <GraphTitleAxis*/}
-              {/*  setFormData={setFormData}*/}
-              {/*  formData={formData}*/}
-              {/*  {...renderProps}*/}
-              {/*/ >*/}
-              <CreateGraph />
-            </>
+            <GraphTitleAxis
+              setFormData={setFormData}
+              formData={formData}
+              {...renderProps}
+            />
           )}
         />
 

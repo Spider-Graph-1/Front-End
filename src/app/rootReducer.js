@@ -2,7 +2,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 // Reducers
 import auth from '../features/auth/authSlice';
-import createGraph from '../features/graph/create/createGraphSlice';
+import createGraph from '../features/graph/graphSlice';
 
 const rootReducer = combineReducers({
   auth,

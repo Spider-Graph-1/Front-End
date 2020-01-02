@@ -12,6 +12,9 @@ import {
   MenuItem,
   makeStyles,
 } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { changeTitle, changeAxis } from '../../features/graph/graphSlice';
 
 const useStyles = makeStyles({
   title: {
@@ -30,27 +33,26 @@ const useStyles = makeStyles({
   },
 });
 
-function GraphTitleAxis({
-  setAxis,
-  axis,
-  setTitle,
-  formData,
-  setFormData,
-  history,
-}) {
+function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { title, labels } = useSelector((state) => state.createGraph);
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
   const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);
 
-  const newTitle = (event) => {
-    setTitle(event.target.value);
+  const newTitle = ({ target: { value } }) => {
+    dispatch(changeTitle(value));
   };
 
-  const saveAxis = (event) => {
-    let newAxisData = [...axisData];
-    newAxisData[event.target.name] = event.target.value;
-    setAxisData(newAxisData);
+  const saveAxis = ({ target: { value } }, index) => {
+    dispatch(
+      changeAxis({
+        index,
+        label: value,
+      })
+    );
   };
   const renderAxisField = (event) => {
     setNum(event.target.value);
@@ -60,14 +62,14 @@ function GraphTitleAxis({
   const submitForm = (event) => {
     console.log(axisData);
     event.preventDefault();
-    setAxis(axisData.slice(0, num));
-    history.push('/dashboard/chart');
+    history.push('/graph');
   };
 
   return (
     <Container maxWidth="sm">
       <Paper>
         <Box
+          mt={18}
           py="1.5rem"
           component="form"
           display="flex"
@@ -84,6 +86,7 @@ function GraphTitleAxis({
             color="secondary"
             label="Graph Title"
             placeholder="Add Title Here"
+            value={title}
             onChange={newTitle}
             className={classes.formField}
           />
@@ -114,10 +117,10 @@ function GraphTitleAxis({
                       name={id}
                       type="text"
                       label={`Axis ${id + 1} title`}
-                      value={item}
+                      value={labels[id]}
                       color="secondary"
                       placeholder={`Add Axis ${id + 1} Name`}
-                      onChange={saveAxis}
+                      onChange={(event) => saveAxis(event, id)}
                       className={classes.formField}
                     />
                   </>

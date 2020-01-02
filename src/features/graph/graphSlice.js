@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import theme from '../../../app/theme';
-import colors from '../../../utils/colors';
+import theme from '../../app/theme';
+import colors from '../../utils/colors';
 
 const initialState = {
   labels: JSON.parse(localStorage.getItem('graphState'))

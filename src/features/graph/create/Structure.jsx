@@ -8,12 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addAxis,
-  changeAxis,
-  changeTitle,
-  removeAxis,
-} from './createGraphSlice';
+import { addAxis, changeAxis, changeTitle, removeAxis } from '../graphSlice';
 
 function Structure({ classes, setIsOpen, setActiveStep }) {
   const dispatch = useDispatch();
