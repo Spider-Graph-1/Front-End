@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import EditData from './EditData';
 import EditStructure from './EditStructure';
+import UndoRedo from '../UndoRedo';
 
 const drawerWidth = 460;
 
@@ -84,6 +85,7 @@ const EditBar = () => {
           <Tab label="Data" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
+      <UndoRedo />
       <TabPanel value={value} index={0}>
         <EditStructure />
       </TabPanel>

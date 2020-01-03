@@ -8,7 +8,9 @@ import EditBar from './edit/EditBar';
 
 const ViewGraph = () => {
   const size = useWindowSize();
-  const { labels, datasets, title } = useSelector((state) => state.createGraph);
+  const { labels, datasets, title } = useSelector(
+    (state) => state.createGraph.present
+  );
 
   useEffect(() => {
     if (title !== '') {

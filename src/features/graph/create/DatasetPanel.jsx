@@ -45,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
 const DatasetPanel = ({ index, expanded, setExpanded, handleExpansion }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { datasets, labels } = useSelector((state) => state.createGraph);
+  const { datasets, labels } = useSelector(
+    (state) => state.createGraph.present
+  );
   const [markedComplete, setMarkedComplete] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
 

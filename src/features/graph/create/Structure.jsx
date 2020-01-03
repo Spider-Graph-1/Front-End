@@ -12,7 +12,7 @@ import { addAxis, changeAxis, changeTitle, removeAxis } from '../graphSlice';
 
 function Structure({ classes, setIsOpen, setActiveStep }) {
   const dispatch = useDispatch();
-  const { title, labels } = useSelector((state) => state.createGraph);
+  const { title, labels } = useSelector((state) => state.createGraph.present);
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {

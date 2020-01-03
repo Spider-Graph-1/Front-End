@@ -37,7 +37,7 @@ function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { title, labels } = useSelector((state) => state.createGraph);
+  const { title, labels } = useSelector((state) => state.createGraph.present);
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
   const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);

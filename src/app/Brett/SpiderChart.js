@@ -22,7 +22,7 @@ function SpiderChart({
     options: {
       title: { text },
     },
-  } = useSelector((state) => state.createGraph);
+  } = useSelector((state) => state.createGraph.present);
   const handleBack = () => {
     setAxis([]);
     setNumbers([]);
