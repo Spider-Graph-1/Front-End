@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Radar } from 'react-chartjs-2';
+import React, { useState } from 'react';
+
 import {
   Box,
   Button,
@@ -33,14 +33,14 @@ const useStyles = makeStyles({
   },
 });
 
-function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
+function GraphTitleAxis() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const { title, labels } = useSelector((state) => state.createGraph);
   const [num, setNum] = useState();
   const [greenlight, setGreenlight] = useState(false);
-  const [axisData, setAxisData] = useState(['', '', '', '', '', '', '']);
+  const [axisData] = useState(['', '', '', '', '', '', '']);
 
   const newTitle = ({ target: { value } }) => {
     dispatch(changeTitle(value));
@@ -60,10 +60,13 @@ function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
     setGreenlight(true);
   };
   const submitForm = (event) => {
-    console.log(axisData);
     event.preventDefault();
     history.push('/graph');
   };
+
+  function routeToGraph(event) {
+    history.push('/graph');
+  }
 
   return (
     <Container maxWidth="sm">
@@ -102,11 +105,11 @@ function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
             className={classes.formField}
           >
             <MenuItem default>Choose an Option</MenuItem>
-            <MenuItem value="2">2</MenuItem>
             <MenuItem value="3">3</MenuItem>
             <MenuItem value="4">4</MenuItem>
             <MenuItem value="5">5</MenuItem>
             <MenuItem value="6">6</MenuItem>
+            <MenuItem value="7">7</MenuItem>
           </Select>
           {greenlight
             ? axisData.slice(0, num).map((item, id) => {
@@ -135,6 +138,8 @@ function GraphTitleAxis({ setAxis, axis, formData, setFormData }) {
           >
             Create
           </Button>
+
+          <Button onClick={routeToGraph}>See Graph</Button>
         </Box>
       </Paper>
     </Container>

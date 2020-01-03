@@ -61,6 +61,8 @@ const ViewGraph = () => {
         fontSize: 1.25 * theme.typography.fontSize,
       },
       ticks: {
+        min: 0,
+        stepSize: 0.5,
         fontColor: theme.palette.text.secondary,
         fontFamily: theme.typography.caption.fontFamily,
         fontSize: 0.75 * theme.typography.fontSize,
