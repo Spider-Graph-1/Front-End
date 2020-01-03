@@ -5,7 +5,7 @@ import { addAxis, changeAxis, changeTitle, removeAxis } from '../graphSlice';
 
 const EditStructure = () => {
   const dispatch = useDispatch();
-  const { title, labels } = useSelector((state) => state.createGraph);
+  const { title, labels } = useSelector((state) => state.createGraph.present);
 
   const editTitle = ({ target: { value } }) => {
     dispatch(changeTitle(value));
@@ -21,7 +21,7 @@ const EditStructure = () => {
   };
 
   return (
-    <Box component="form" display="flex" flexDirection="column" p={1}>
+    <Box component="form" display="flex" flexDirection="column" px={0.5}>
       <TextField
         required
         autoFocus

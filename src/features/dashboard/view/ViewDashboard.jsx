@@ -4,8 +4,6 @@ import axiosWithAuth from '../../../api/utils/axiosWithAuth';
 import GraphTitleAxis from '../../../app/Brett/GraphTitleAxis';
 
 const ViewDashboard = () => {
-  const [formData, setFormData] = useState({ title: '', axe: '' });
-
   const [graphs, setGraphs] = useState(null);
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const ViewDashboard = () => {
   if (graphs) {
     return <CreateGraph />;
   }
-  return <GraphTitleAxis setFormData={setFormData} formData={formData} />;
+  return <GraphTitleAxis />;
 };
 
 export default ViewDashboard;

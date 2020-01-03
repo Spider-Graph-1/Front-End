@@ -6,7 +6,7 @@ import { addDataset } from '../graphSlice';
 
 const EditData = () => {
   const dispatch = useDispatch();
-  const { datasets } = useSelector((state) => state.createGraph);
+  const { datasets } = useSelector((state) => state.createGraph.present);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpansion = (panel) => (event, isExpanded) => {
@@ -18,7 +18,7 @@ const EditData = () => {
   };
 
   return (
-    <Box component="form" display="flex" flexDirection="column" pt={1}>
+    <Box component="form" display="flex" flexDirection="column" px={0.5}>
       {datasets.map((dataset, index) => (
         <DatasetPanel
           // eslint-disable-next-line react/no-array-index-key

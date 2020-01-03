@@ -12,7 +12,7 @@ import { addDataset } from '../graphSlice';
 
 function Data({ classes, setActiveStep }) {
   const dispatch = useDispatch();
-  const { datasets } = useSelector((state) => state.createGraph);
+  const { datasets } = useSelector((state) => state.createGraph.present);
   const [expanded, setExpanded] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
