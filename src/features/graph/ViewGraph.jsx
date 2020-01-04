@@ -25,6 +25,7 @@ const ViewGraph = () => {
   );
 
   const [canvas, setCanvas] = useState(null);
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     if (title !== '') {
@@ -96,7 +97,8 @@ const ViewGraph = () => {
 
     animation: {
       onComplete: () => {
-        setCanvas(document.getElementsByTagName('canvas')[0]);
+        setCanvas(graphCanvas.current.chartInstance.canvas);
+        setDisabled(false);
       },
     },
   };
@@ -105,11 +107,14 @@ const ViewGraph = () => {
     <Box display="flex" flexDirection="row-reverse" justifyContent="center">
       <Fab
         onClick={() =>
-          canvas.toBlob((blob) => saveAs(blob, `${title.toLowerCase()}.png`))
+          canvas.toBlob((blob) =>
+            saveAs(blob, `${title.replace(/ /g, '_').toLowerCase()}.png`)
+          )
         }
         color="primary"
         aria-label="download graph"
         className={classes.downloadButton}
+        disabled={disabled}
       >
         <CloudDownloadIcon />
       </Fab>
