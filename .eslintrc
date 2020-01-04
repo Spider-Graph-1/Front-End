@@ -24,8 +24,6 @@
     "plugin:jsx-a11y/recommended",
     "airbnb",
     "airbnb/hooks",
-
-    // must be last
     "plugin:prettier/recommended",
     "prettier/react"
   ],
@@ -46,10 +44,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     }
   }

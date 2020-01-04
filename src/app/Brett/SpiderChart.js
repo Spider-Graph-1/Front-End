@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import DataForm from './DataForm';
+import { useSelector } from 'react-redux';
 
 function SpiderChart({
   setTitle,
