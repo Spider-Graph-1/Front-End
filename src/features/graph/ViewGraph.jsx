@@ -94,7 +94,7 @@ const ViewGraph = () => {
 
     animation: {
       onComplete: () => {
-        setCanvas(document.getElementsByTagName('canvas')[0]);
+        setCanvas(graphCanvas.current.chartInstance.canvas);
       },
     },
   };
