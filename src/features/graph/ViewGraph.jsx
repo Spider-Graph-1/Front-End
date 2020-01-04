@@ -1,16 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
-import { Box } from '@material-ui/core';
+import { makeStyles, Box, Fab } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import { saveAs } from 'file-saver';
 import theme from '../../app/theme';
 import useWindowSize from '../../utils/useWindowSize';
 import EditBar from './edit/EditBar';
 
+const useStyles = makeStyles(() => ({
+  downloadButton: {
+    position: 'fixed',
+    bottom: '2rem',
+    left: '2rem',
+  },
+}));
+
 const ViewGraph = () => {
+  const graphCanvas = useRef(null);
+  const classes = useStyles();
   const size = useWindowSize();
   const { labels, datasets, title } = useSelector(
     (state) => state.createGraph.present
   );
+
+  const [canvas, setCanvas] = useState(null);
 
   useEffect(() => {
     if (title !== '') {
@@ -36,11 +50,13 @@ const ViewGraph = () => {
       fontStyle: 'normal',
       text: title,
     },
+
     layout: {
       padding: {
         top: 50,
       },
     },
+
     legend: {
       labels: {
         fontColor: theme.palette.text.primary,
@@ -48,6 +64,7 @@ const ViewGraph = () => {
         fontSize: 1.375 * theme.typography.fontSize,
       },
     },
+
     tooltips: {
       backgroundColor: theme.palette.secondary.dark,
       titleFontFamily: theme.typography.body1.fontFamily,
@@ -56,29 +73,51 @@ const ViewGraph = () => {
       bodyFontFamily: theme.typography.body1.fontFamily,
       bodyFontSize: 1.125 * theme.typography.fontSize,
     },
+
     scale: {
       pointLabels: {
         fontColor: theme.palette.text.primary,
         fontFamily: theme.typography.body1.fontFamily,
         fontSize: 1.25 * theme.typography.fontSize,
       },
+
       ticks: {
         fontColor: theme.palette.text.secondary,
         fontFamily: theme.typography.caption.fontFamily,
         fontSize: 0.75 * theme.typography.fontSize,
+      },
+
+      gridLines: {
+        color: theme.palette.grey['300'],
+      },
+    },
+
+    animation: {
+      onComplete: () => {
+        setCanvas(document.getElementsByTagName('canvas')[0]);
       },
     },
   };
 
   return (
     <Box display="flex" flexDirection="row-reverse" justifyContent="center">
+      <Fab
+        onClick={() =>
+          canvas.toBlob((blob) => saveAs(blob, `${title.toLowerCase()}.png`))
+        }
+        color="primary"
+        aria-label="download graph"
+        className={classes.downloadButton}
+      >
+        <CloudDownloadIcon />
+      </Fab>
       <EditBar />
       <Box
         width="100%"
         height={size.width / size.height > 0.8 ? size.height - 100 : size.width}
         pt={6}
       >
-        <Radar data={graphData} options={graphOptions} />
+        <Radar ref={graphCanvas} data={graphData} options={graphOptions} />
       </Box>
     </Box>
   );
