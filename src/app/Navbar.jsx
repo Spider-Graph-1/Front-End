@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     margin: '1rem',
   },
 
+  navProfile: {
+    margin: '.2rem',
+  },
+
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -37,7 +41,13 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Spider Graph
         </Typography>
-
+        <Button
+          to="/profile"
+          component={RouterLink}
+          className={classes.navProfile}
+        >
+          Profile
+        </Button>
         <Button
           to="/dashboard"
           component={RouterLink}

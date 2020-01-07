@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosWithAuth from '../../api/utils/axiosWithAuth';
 
 import {
   Box,
@@ -45,6 +46,13 @@ function GraphTitleAxis() {
   const newTitle = ({ target: { value } }) => {
     dispatch(changeTitle(value));
   };
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get('/users/4')
+      .then((response) => console.log('This is the response', response))
+      .catch((error) => console.log(error));
+  }, []);
 
   const saveAxis = ({ target: { value } }, index) => {
     dispatch(
