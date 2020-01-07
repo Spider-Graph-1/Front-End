@@ -1,6 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
 import axiosWithAuth from '../../api/utils/axiosWithAuth';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  margin-top: 10%;
+`;
 const Profile = () => {
   useEffect(() => {
     axiosWithAuth()
@@ -10,9 +15,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <Div>
       <h1>This is where we will build out the profile.</h1>
-    </div>
+    </Div>
   );
 };
 

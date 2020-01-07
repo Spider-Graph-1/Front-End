@@ -73,7 +73,7 @@ const App = () => {
             />
             <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
             <PrivateRoute exact path="/graph" component={ViewGraph} />
-            <Route exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
           </Switch>
         </Container>
       </Router>
