@@ -26,7 +26,7 @@ import Navbar from './Navbar';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
 import ViewGraph from '../features/graph/ViewGraph';
-import ViewDashboard from '../features/dashboard/view/ViewDashboard';
+import ViewDashboard from '../features/dashboard/ViewDashboard';
 
 const useStyles = makeStyles(() => ({
   title: {

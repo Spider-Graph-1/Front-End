@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Radar } from 'react-chartjs-2';
-import { makeStyles, Box, Fab } from '@material-ui/core';
+import { makeStyles, Box, Fab, Button } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { saveAs } from 'file-saver';
 import theme from '../../app/theme';
 import useWindowSize from '../../utils/useWindowSize';
 import EditBar from './edit/EditBar';
+import axiosWithAuth from '../../api/utils/axiosWithAuth';
 
 const useStyles = makeStyles(() => ({
   downloadButton: {
@@ -20,7 +21,7 @@ const ViewGraph = () => {
   const graphCanvas = useRef(null);
   const classes = useStyles();
   const size = useWindowSize();
-  const { labels, datasets, title } = useSelector(
+  const { labels, datasets, title, stepSize } = useSelector(
     (state) => state.createGraph.present
   );
 
@@ -84,7 +85,7 @@ const ViewGraph = () => {
 
       ticks: {
         min: 0,
-        stepSize: 0.5,
+        stepSize,
         fontColor: theme.palette.text.secondary,
         fontFamily: theme.typography.caption.fontFamily,
         fontSize: 0.75 * theme.typography.fontSize,
