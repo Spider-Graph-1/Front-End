@@ -1,22 +1,33 @@
 import React from 'react';
-import { useEffect } from 'react';
-import axiosWithAuth from '../../api/utils/axiosWithAuth';
+import { useEffect, useState } from 'react';
+import tempAxiosBrett from '../../api/utils/tempAxiosBrett';
 import styled from 'styled-components';
 
 const Div = styled.div`
   margin-top: 10%;
 `;
 const Profile = () => {
+  const [userData, setUserData] = useState({});
   useEffect(() => {
-    axiosWithAuth()
-      .get('/user/4')
-      .then((response) => console.log(response))
+    tempAxiosBrett()
+      .get('/users/5')
+      .then((response) => {
+        console.log(response);
+        setUserData(response.data);
+      })
+
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
   return (
     <Div>
-      <h1>This is where we will build out the profile.</h1>
+      <h1>Username: {userData.username}</h1>
+      <h1>Name: {userData.name}</h1>
+      <h1>Email: {userData.email}</h1>
+      <h1>Password: {userData.password}</h1>
     </Div>
   );
 };
