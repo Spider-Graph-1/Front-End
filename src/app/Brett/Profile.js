@@ -10,7 +10,7 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     tempAxiosBrett()
-      .get('/users/5')
+      .get('/users/1')
       .then((response) => {
         console.log(response);
         setUserData(response.data);
