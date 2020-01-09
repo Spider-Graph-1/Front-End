@@ -10,19 +10,24 @@ import {
   Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   title: {
+    marginRight: '1rem',
+    marginLeft: '1rem',
     flexGrow: 1,
     padding: '1rem',
+    paddingBlockEnd: '.5rem',
+    borderBlockEnd: `2px solid ${theme.palette.primary.main}`,
   },
   textArea: {
+    paddingTop: '1rem',
     margin: '.5rem 10%',
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-});
+}));
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -39,9 +44,9 @@ const Profile = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
   return (
     <Container maxWidth="sm">
       <Paper elevation={1}>
