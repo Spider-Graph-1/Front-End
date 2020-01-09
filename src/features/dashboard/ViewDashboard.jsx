@@ -9,7 +9,7 @@ const ViewDashboard = () => {
   const { graphs } = useSelector((state) => state.dashboard);
 
   useEffect(() => {
-    dispatch(getGraphs(4));
+    dispatch(getGraphs('4'));
   }, [dispatch]);
 
   if (graphs) {
