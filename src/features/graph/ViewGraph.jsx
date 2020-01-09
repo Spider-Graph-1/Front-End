@@ -128,4 +128,5 @@ const ViewGraph = () => {
     </Box>
   );
 };
+
 export default ViewGraph;
