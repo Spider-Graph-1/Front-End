@@ -1,7 +1,6 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import tempAxiosBrett from '../../api/utils/tempAxiosBrett';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axiosWithAuth from '../../api/utils/axiosWithAuth';
 
 const Div = styled.div`
   margin-top: 10%;
@@ -9,8 +8,8 @@ const Div = styled.div`
 const Profile = () => {
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    tempAxiosBrett()
-      .get('/users/1')
+    axiosWithAuth()
+      .get(`users/${localStorage.getItem('userId')}`)
       .then((response) => {
         console.log(response);
         setUserData(response.data);
