@@ -7,6 +7,7 @@ import {
   Drawer,
   Typography,
   makeStyles,
+  Button,
 } from '@material-ui/core';
 import EditData from './EditData';
 import EditStructure from './EditStructure';
@@ -85,6 +86,7 @@ const EditBar = () => {
           <Tab label="Data" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
+      <Button>Save</Button>
       <UndoRedo />
       <TabPanel value={value} index={0}>
         <EditStructure />
