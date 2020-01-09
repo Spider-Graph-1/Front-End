@@ -7,6 +7,9 @@ const initialState = {
   returningUser: false,
   success: null,
   error: null,
+  userId: JSON.parse(localStorage.getItem('userId'))
+    ? JSON.parse(localStorage.getItem('userId'))
+    : null,
 };
 
 const authenticateUser = createSlice({
@@ -21,12 +24,15 @@ const authenticateUser = createSlice({
     },
 
     authenticateUserSuccess(state, action) {
+      const [success, userId] = action.payload;
+
       return {
         ...state,
         authenticated: true,
-        success: JSON.parse(action.payload),
+        success: JSON.parse(success),
         error: null,
         authenticating: false,
+        userId,
       };
     },
 
@@ -74,8 +80,14 @@ export const register = (user) => async (dispatch) => {
   dispatch(authenticatingUser());
   try {
     const registrationResponse = await requestRegistration(user);
-    localStorage.setItem('token', registrationResponse.data.token);
-    dispatch(authenticateUserSuccess(JSON.stringify(registrationResponse)));
+    localStorage.setItem('token', registrationResponse.token);
+    localStorage.setItem('userId', registrationResponse.userId);
+    dispatch(
+      authenticateUserSuccess([
+        JSON.stringify(registrationResponse.rest),
+        registrationResponse.userId,
+      ])
+    );
   } catch (error) {
     dispatch(authenticateUserError(JSON.stringify(error)));
   }
@@ -85,8 +97,14 @@ export const login = (user) => async (dispatch) => {
   dispatch(authenticatingUser());
   try {
     const loginResponse = await requestLogin(user);
-    localStorage.setItem('token', loginResponse.data.token);
-    dispatch(authenticateUserSuccess(JSON.stringify(loginResponse)));
+    localStorage.setItem('token', loginResponse.token);
+    localStorage.setItem('userId', loginResponse.userId);
+    dispatch(
+      authenticateUserSuccess([
+        JSON.stringify(loginResponse.rest),
+        loginResponse.userId,
+      ])
+    );
   } catch (error) {
     dispatch(authenticateUserError(JSON.stringify(error)));
   }
