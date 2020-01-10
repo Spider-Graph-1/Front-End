@@ -27,7 +27,7 @@ import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
 import ViewGraph from '../features/graph/ViewGraph';
 import ViewDashboard from '../features/dashboard/ViewDashboard';
-import Profile from '../../src/app/Brett/Profile';
+import Profile from './Brett/Profile';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -73,6 +73,7 @@ const App = () => {
             />
             <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
             <PrivateRoute exact path="/graph" component={ViewGraph} />
+            <PrivateRoute path="/graphs/:id" component={ViewGraph} />
             <PrivateRoute exact path="/profile" component={Profile} />
           </Switch>
         </Container>

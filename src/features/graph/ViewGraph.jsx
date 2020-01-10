@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { Radar } from 'react-chartjs-2';
 import { makeStyles, Box, Fab } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { saveAs } from 'file-saver';
+import { useParams } from 'react-router-dom';
 import theme from '../../app/theme';
 import useWindowSize from '../../utils/useWindowSize';
 import EditBar from './edit/EditBar';
+import { switchGraph } from './graphSlice';
 
 const useStyles = makeStyles(() => ({
   downloadButton: {
@@ -26,6 +29,17 @@ const ViewGraph = () => {
 
   const [canvas, setCanvas] = useState(null);
   const [disabled, setDisabled] = useState(true);
+
+  const dispatch = useDispatch();
+  const { graphs } = useSelector((state) => state.dashboard);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id && graphs) {
+      dispatch(switchGraph(graphs.find((graph) => graph.id === Number(id))));
+      dispatch(UndoActionCreators.clearHistory());
+    }
+  }, [dispatch, graphs, id]);
 
   useEffect(() => {
     if (title !== '') {

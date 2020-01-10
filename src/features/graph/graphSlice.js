@@ -155,6 +155,41 @@ const createGraph = createSlice({
         }),
       };
     },
+
+    switchGraph(state, action) {
+      const {
+        graph_name: title,
+        graph_info: { labels, datasets },
+      } = action.payload;
+
+      return {
+        ...state,
+        title,
+        labels,
+        datasets,
+      };
+    },
+
+    clearGraph(state) {
+      return {
+        ...state,
+        labels: ['', '', ''],
+        datasets: [
+          {
+            label: '',
+            backgroundColor: `${theme.palette.primary.light}40`,
+            borderColor: theme.palette.primary.main,
+            borderDash: [],
+            pointBackgroundColor: theme.palette.primary.dark,
+            pointBorderColor: theme.palette.grey['50'],
+            pointHoverBackgroundColor: theme.palette.grey['50'],
+            pointHoverBorderColor: theme.palette.secondary.dark,
+            data: ['', '', ''],
+          },
+        ],
+        title: '',
+      };
+    },
   },
 });
 
@@ -168,6 +203,8 @@ export const {
   changeDatasetLabel,
   changeDatasetData,
   changeColor,
+  switchGraph,
+  clearGraph,
 } = createGraph.actions;
 
 export default createGraph.reducer;

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axiosWithAuth from '../../api/utils/axiosWithAuth';
+import React, { useState } from 'react';
 
 import {
   Box,
@@ -47,13 +46,6 @@ function GraphTitleAxis() {
     dispatch(changeTitle(value));
   };
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get('/users/4')
-      .then((response) => console.log('This is the response', response))
-      .catch((error) => console.log(error));
-  }, []);
-
   const saveAxis = ({ target: { value } }, index) => {
     dispatch(
       changeAxis({
@@ -64,7 +56,6 @@ function GraphTitleAxis() {
   };
   const renderAxisField = (event) => {
     setNum(event.target.value);
-    console.log(num);
     setGreenlight(true);
   };
   const submitForm = (event) => {
@@ -72,7 +63,7 @@ function GraphTitleAxis() {
     history.push('/graph');
   };
 
-  function routeToGraph(event) {
+  function routeToGraph() {
     history.push('/graph');
   }
 

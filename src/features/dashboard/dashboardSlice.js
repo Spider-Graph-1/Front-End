@@ -5,7 +5,7 @@ const initialState = {
   fetching: false,
   success: null,
   error: null,
-  graphs: [{}],
+  graphs: null,
 };
 
 const dashboard = createSlice({
@@ -28,7 +28,9 @@ const dashboard = createSlice({
         ...state,
         fetching: false,
         success: rest,
-        graphs: data,
+        graphs: data.filter(
+          (graph) => graph.user_id === Number(localStorage.getItem('userId'))
+        ),
         error: null,
       };
     },
@@ -52,10 +54,10 @@ export const {
 
 export default dashboard.reducer;
 
-export const getGraphs = (user) => async (dispatch) => {
+export const getGraphs = () => async (dispatch) => {
   dispatch(fetchingGraphs());
   try {
-    const graphsResponse = await requestGraphs(user);
+    const graphsResponse = await requestGraphs();
     dispatch(fetchGraphsSuccess(JSON.stringify(graphsResponse)));
   } catch (error) {
     dispatch(fetchGraphsError(JSON.stringify(error)));
