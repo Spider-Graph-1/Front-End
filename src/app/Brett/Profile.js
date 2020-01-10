@@ -35,9 +35,7 @@ const Profile = () => {
   const [red, setRed] = useState(false);
   const [blue, setBlue] = useState(false);
 
-  const [usernameFinish, setUsernameFinish] = useState(false);
-  const [nameFinish, setNameFinish] = useState(false);
-  const [emailFinish, setEmailFinish] = useState(false);
+  const [readyToSave, setReadyToSave] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -50,18 +48,27 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    axiosWithAuth()
-      .put(`users/${localStorage.getItem('userId')}`, {
-        username: userData.username,
-        password: userData.password,
-        name: userData.name,
-        email: userData.email,
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [emailFinish, usernameFinish, nameFinish]);
+    if (readyToSave) {
+      axiosWithAuth()
+        .put(`users/${localStorage.getItem('userId')}`, {
+          username: userData.username,
+          password: userData.password,
+          name: userData.name,
+          email: userData.email,
+        })
+        .then((response) => {
+          setUserData(response.data);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setReadyToSave(false));
+    }
+  }, [
+    readyToSave,
+    userData.username,
+    userData.password,
+    userData.name,
+    userData.email,
+  ]);
 
   const setStatus = () => {
     setGreen(true);
@@ -72,15 +79,15 @@ const Profile = () => {
   };
   const saveUsername = () => {
     setGreen(false);
-    setUsernameFinish(true);
+    setReadyToSave(true);
   };
   const saveName = () => {
     setRed(false);
-    setNameFinish(true);
+    setReadyToSave(true);
   };
   const saveEmail = () => {
     setBlue(false);
-    setEmailFinish(true);
+    setReadyToSave(true);
   };
   return (
     <Container maxWidth="sm">
