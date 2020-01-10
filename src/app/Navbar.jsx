@@ -1,22 +1,21 @@
 // React
 import React from 'react';
 // UI
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  makeStyles,
-} from '@material-ui/core';
+import { Box, AppBar, Toolbar, Button, makeStyles } from '@material-ui/core';
 // Routing
 import { Link as RouterLink } from 'react-router-dom';
 // Components
 import Logout from '../features/auth/Logout';
+import logo from '../assets/logo.png';
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    flexGrow: 1,
-    fontSize: '1.625rem',
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  logo: {
+    height: '50px',
   },
 
   navButton: {
@@ -36,26 +35,28 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" color="default" className={classes.appBar}>
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Spider Graph
-        </Typography>
-        <Button
-          to="/profile"
-          component={RouterLink}
-          className={classes.navProfile}
-        >
-          Profile
-        </Button>
-        <Button
-          to="/dashboard"
-          component={RouterLink}
-          className={classes.navButton}
-        >
-          Dashboard
-        </Button>
-        <Logout />
+    <AppBar position="fixed" color="secondary" className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        <img src={logo} alt="Spider Graph Logo" className={classes.logo} />
+        <Box>
+          <Button
+            to="/profile"
+            component={RouterLink}
+            className={classes.navProfile}
+            color="inherit"
+          >
+            Profile
+          </Button>
+          <Button
+            to="/dashboard"
+            component={RouterLink}
+            className={classes.navButton}
+            color="inherit"
+          >
+            Dashboard
+          </Button>
+          <Logout />
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -7,11 +7,11 @@ import {
   Drawer,
   Typography,
   makeStyles,
-  Button,
 } from '@material-ui/core';
 import EditData from './EditData';
 import EditStructure from './EditStructure';
-import UndoRedo from '../UndoRedo';
+import UndoRedo from './UndoRedo';
+import Save from '../Save';
 
 const drawerWidth = 460;
 
@@ -86,8 +86,16 @@ const EditBar = () => {
           <Tab label="Data" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <Button>Save</Button>
-      <UndoRedo />
+      <Box
+        display="flex"
+        justifyContent="space-around"
+        width="100%"
+        px={10}
+        pt={3}
+      >
+        <Save />
+        <UndoRedo />
+      </Box>
       <TabPanel value={value} index={0}>
         <EditStructure />
       </TabPanel>

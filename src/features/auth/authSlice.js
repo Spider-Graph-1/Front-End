@@ -22,6 +22,7 @@ const authenticateUser = createSlice({
         authenticating: true,
       };
     },
+
     authenticateUserSuccess(state, action) {
       const [success, userId] = action.payload;
 
@@ -34,6 +35,7 @@ const authenticateUser = createSlice({
         userId,
       };
     },
+
     authenticateUserError(state, action) {
       return {
         ...state,
@@ -42,6 +44,7 @@ const authenticateUser = createSlice({
         authenticating: false,
       };
     },
+
     unAuthenticateUser(state) {
       return {
         ...state,
@@ -51,6 +54,7 @@ const authenticateUser = createSlice({
         error: null,
       };
     },
+
     setReturningUser(state, action) {
       return {
         ...state,
