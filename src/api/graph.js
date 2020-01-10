@@ -1,8 +1,8 @@
 import axiosWithAuth from './utils/axiosWithAuth';
 
-export const saveGraph = async (graph) => {
-  const result = await axiosWithAuth().post('/graphs', graph);
-  console.log(graph);
+export const saveGraph = (graph) => axiosWithAuth().post('/graphs', graph);
 
-  return result;
-};
+export const editGraph = (id, graph) =>
+  axiosWithAuth().put(`/graphs/${id}`, graph);
+
+export const remove = (id) => axiosWithAuth().delete(`/graphs/${id}`);

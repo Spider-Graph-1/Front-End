@@ -16,16 +16,15 @@ function DataForm({
   };
 
   const changeValue = (event) => {
-    let newNumbers = [...numbers];
+    const newNumbers = [...numbers];
     newNumbers[event.target.name] = event.target.value;
     setNumbers(newNumbers);
-    console.log(`numbers: ${numbers}`);
   };
   const changeColor = (event) => {
     setColor(event.target.value);
   };
 
-  //Setting up how to save the data.
+  // Setting up how to save the data.
 
   return (
     <form onSubmit={addToDatasets}>

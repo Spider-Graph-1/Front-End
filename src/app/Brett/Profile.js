@@ -37,16 +37,11 @@ const Profile = () => {
     axiosWithAuth()
       .get(`users/${localStorage.getItem('userId')}`)
       .then((response) => {
-        console.log(response);
         setUserData(response.data);
       })
-
       .catch((error) => console.log(error));
   }, []);
-
-  // useEffect(() => {
-  //   console.log(userData);
-  // }, [userData]);
+  
   return (
     <Container maxWidth="sm">
       <Paper elevation={1}>

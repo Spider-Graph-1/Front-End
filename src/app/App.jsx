@@ -5,7 +5,7 @@ import {
   ThemeProvider,
   CssBaseline,
   Container,
-  Typography,
+  Box,
   makeStyles,
 } from '@material-ui/core';
 // Routing
@@ -25,14 +25,25 @@ import Navbar from './Navbar';
 // import BrettApp from './Brett/BrettApp';
 import Register from '../features/auth/Register';
 import Login from '../features/auth/Login';
-import ViewGraph from '../features/graph/ViewGraph';
+import ViewGraph from '../features/graph/view/ViewGraph';
 import ViewDashboard from '../features/dashboard/ViewDashboard';
-import Profile from '../../src/app/Brett/Profile';
+import Profile from './Brett/Profile';
+import logo from '../assets/logo.png';
 
 const useStyles = makeStyles(() => ({
-  title: {
-    flexGrow: 1,
-    padding: '3rem',
+  logoContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.secondary.main,
+  },
+
+  logo: {
+    padding: '3rem 0',
+  },
+
+  appContainer: {
+    marginTop: '3rem',
   },
 }));
 
@@ -47,16 +58,11 @@ const App = () => {
         {authenticated ? (
           <Navbar />
         ) : (
-          <Typography
-            variant="h1"
-            color="textSecondary"
-            align="center"
-            className={classes.title}
-          >
-            Spider Graph
-          </Typography>
+          <Box className={classes.logoContainer}>
+            <img src={logo} alt="Spider Graph Logo" className={classes.logo} />
+          </Box>
         )}
-        <Container>
+        <Container className={classes.appContainer}>
           <Switch>
             <Route
               exact
@@ -73,6 +79,7 @@ const App = () => {
             />
             <PrivateRoute exact path="/dashboard" component={ViewDashboard} />
             <PrivateRoute exact path="/graph" component={ViewGraph} />
+            <PrivateRoute path="/graphs/:id" component={ViewGraph} />
             <PrivateRoute exact path="/profile" component={Profile} />
           </Switch>
         </Container>
