@@ -2,7 +2,7 @@
 
 ## [Product Vision](https://www.notion.so/Product-Vision-bcc33f41ecc94cd395ebdbb4504b1f23)
 
-## Rough Outline for Project Structure
+## Project Structure
 
 ```bash
 src
