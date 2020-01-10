@@ -2,34 +2,67 @@
 
 ## [Product Vision](https://www.notion.so/Product-Vision-bcc33f41ecc94cd395ebdbb4504b1f23)
 
-## Rough Outline for Project Structure
+## Project Structure
+
 ```bash
 src
 ├── api
-│   ├── auth.js
-│   └── utils
-│       └── axiosWithAuth.js
+│   ├── auth.js
+│   ├── dashboard.js
+│   ├── graph.js
+│   └── utils
+│       └── axiosWithAuth.js
 ├── app
-│   ├── App.jsx
-│   ├── rootReducer.js
-│   ├── store.js
-│   └── theme.js
+│   ├── App.jsx
+│   ├── Brett
+│   │   ├── BrettApp.js
+│   │   ├── DataForm.js
+│   │   ├── GraphTitleAxis.js
+│   │   ├── Profile.js
+│   │   └── SpiderChart.js
+│   ├── Navbar.jsx
+│   ├── rootReducer.js
+│   ├── store.js
+│   └── theme.js
+├── assets
+│   └── logo.png
 ├── features
-│   ├── auth
-│   │   ├── login
-│   │   ├── logout
-│   │   └── register
-│   ├── chart
-│   │   ├── delete
-│   │   ├── edit
-│   │   │   ├── data
-│   │   │   └── style
-│   │   ├── export
-│   │   └── save
-│   └── dashboard
-│       ├── delete
-│       └── view
-└── index.jsx
+│   ├── auth
+│   │   ├── authSlice.js
+│   │   ├── Login.jsx
+│   │   ├── Logout.jsx
+│   │   ├── PrivateRoute.jsx
+│   │   ├── Register.jsx
+│   │   └── useAuthForm.jsx
+│   ├── dashboard
+│   │   ├── dashboardSlice.js
+│   │   ├── Graph.jsx
+│   │   └── ViewDashboard.jsx
+│   ├── graph
+│   │   ├── create
+│   │   │   ├── CreateGraph.jsx
+│   │   │   ├── Data.jsx
+│   │   │   ├── DatasetPanel.jsx
+│   │   │   └── Structure.jsx
+│   │   ├── delete
+│   │   │   ├── Delete.jsx
+│   │   │   └── deleteSlice.js
+│   │   ├── edit
+│   │   │   ├── EditBar.jsx
+│   │   │   ├── EditData.jsx
+│   │   │   ├── editGraphSlice.js
+│   │   │   ├── EditStructure.jsx
+│   │   │   └── UndoRedo.jsx
+│   │   ├── saveGraphSlice.js
+│   │   ├── Save.jsx
+│   │   └── view
+│   │       ├── graphSlice.js
+│   │       └── ViewGraph.jsx
+│   └── users
+├── index.jsx
+└── utils
+    ├── colors.js
+    └── useWindowSize.js
 ```
 
 ## Available Scripts
@@ -49,7 +82,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `yarn build:serve`
 
 Serves the build files. Open [http://localhost:3000](http://localhost:3000) to
- view it in the browser.
+view it in the browser.
 
 ### `yarn format`
 
@@ -76,18 +109,18 @@ You will also see any lint errors in the console.
 ### Husky & Lint-Staged
 
 Runs prettier on all source files and sorts package.json file prior on each
- commit.
- 
+commit.
+
 ### Eslint
 
 If you want to use elint, you can turn on the plugin in your editor. If not
 , that's okay. Eslint will not run automatically. See .eslintrc for rule
- details.
+details.
 
 ### Prettier
 
 Prettier will be run on each commit to keep code style consistent. See
- .prettierrc for rule details.
+.prettierrc for rule details.
 
 ### Stylelint
 
