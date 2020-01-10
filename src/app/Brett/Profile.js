@@ -51,7 +51,12 @@ const Profile = () => {
 
   useEffect(() => {
     axiosWithAuth()
-      .put(`users/${localStorage.getItem('userId')}`, userData)
+      .put(`users/${localStorage.getItem('userId')}`, {
+        username: userData.username,
+        password: userData.password,
+        name: userData.name,
+        email: userData.email,
+      })
       .then((response) => {
         setUserData(response.data);
       })
