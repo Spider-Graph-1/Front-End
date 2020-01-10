@@ -31,6 +31,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
+  const [green, setGreen] = useState(false);
+  const [red, setRed] = useState(false);
+  const [blue, setBlue] = useState(false);
+
+  const [usernameFinish, setUsernameFinish] = useState(false);
+  const [nameFinish, setNameFinish] = useState(false);
+  const [emailFinish, setEmailFinish] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -41,7 +48,35 @@ const Profile = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-  
+
+  useEffect(() => {
+    axiosWithAuth()
+      .put(`users/${localStorage.getItem('userId')}`, userData)
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [emailFinish, usernameFinish, nameFinish]);
+
+  const setStatus = () => {
+    setGreen(true);
+  };
+  const handleChange = (event) => {
+    setUserData({ ...userData, [event.target.name]: event.target.value });
+    console.log(userData);
+  };
+  const saveUsername = () => {
+    setGreen(false);
+    setUsernameFinish(true);
+  };
+  const saveName = () => {
+    setRed(false);
+    setNameFinish(true);
+  };
+  const saveEmail = () => {
+    setBlue(false);
+    setEmailFinish(true);
+  };
   return (
     <Container maxWidth="sm">
       <Paper elevation={1}>
@@ -50,16 +85,84 @@ const Profile = () => {
             User Information
           </Typography>
           <Box className={classes.textArea}>
-            <Typography variant="h6">Username: {userData.username}</Typography>
-            <Button>Edit</Button>
+            {!green ? (
+              <Typography variant="h6">
+                Username: {userData.username}
+              </Typography>
+            ) : (
+              <Typography variant="h6">
+                Username:{' '}
+                <input
+                  name="username"
+                  type="text"
+                  value={userData.username}
+                  onChange={handleChange}
+                />
+              </Typography>
+            )}
+            <Button onClick={setStatus}>Edit</Button>
+            {green ? (
+              <Button color="primary" onClick={saveUsername}>
+                Save
+              </Button>
+            ) : null}
           </Box>
+
           <Box className={classes.textArea}>
-            <Typography variant="h6">Name: {userData.name}</Typography>
-            <Button>Edit</Button>
+            {!red ? (
+              <Typography variant="h6">Name: {userData.name}</Typography>
+            ) : (
+              <Typography variant="h6">
+                Name:{' '}
+                <input
+                  name="name"
+                  type="text"
+                  value={userData.name}
+                  onChange={handleChange}
+                />
+              </Typography>
+            )}
+            <Button
+              onClick={() => {
+                setRed(true);
+              }}
+            >
+              Edit
+            </Button>
+            {red ? (
+              <Button color="primary" onClick={saveName}>
+                Save
+              </Button>
+            ) : null}
           </Box>
+
           <Box className={classes.textArea}>
-            <Typography variant="h6">Email: {userData.email}</Typography>
-            <Button>Edit</Button>
+            {!blue ? (
+              <Typography variant="h6">Name: {userData.email}</Typography>
+            ) : (
+              <Typography variant="h6">
+                Name:{' '}
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  value={userData.email}
+                  onChange={handleChange}
+                />
+              </Typography>
+            )}
+            <Button
+              onClick={() => {
+                setBlue(true);
+              }}
+            >
+              Edit
+            </Button>
+            {blue ? (
+              <Button color="primary" onClick={saveEmail}>
+                Save
+              </Button>
+            ) : null}
           </Box>
         </Box>
       </Paper>
