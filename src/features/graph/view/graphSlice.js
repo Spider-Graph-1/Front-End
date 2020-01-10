@@ -98,16 +98,15 @@ const createGraph = createSlice({
       return {
         ...state,
         labels: state.labels.filter(
-          (label) => state.labels.indexOf(label) !== action.payload
+          (_label, index) => index !== action.payload
         ),
-        datasets: state.datasets.map((dataset) => {
-          return {
-            ...dataset,
-            data: dataset.data.filter(
-              (value) => dataset.data.indexOf(value) !== action.payload
-            ),
-          };
-        }),
+
+        datasets: state.datasets.map((dataset) => ({
+          ...dataset,
+          data: dataset.data.filter(
+            (_value, index) => index !== action.payload
+          ),
+        })),
       };
     },
 
