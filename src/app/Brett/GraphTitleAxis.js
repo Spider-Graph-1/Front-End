@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { changeTitle, changeAxis } from '../../features/graph/graphSlice';
+import { changeTitle, changeAxis } from '../../features/graph/view/graphSlice';
 
 const useStyles = makeStyles({
   title: {

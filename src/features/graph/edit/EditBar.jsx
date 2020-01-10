@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import EditData from './EditData';
 import EditStructure from './EditStructure';
-import UndoRedo from '../UndoRedo';
+import UndoRedo from './UndoRedo';
 import Save from '../Save';
 
 const drawerWidth = 460;

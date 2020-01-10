@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { saveAs } from 'file-saver';
 import { useParams } from 'react-router-dom';
-import theme from '../../app/theme';
-import useWindowSize from '../../utils/useWindowSize';
-import EditBar from './edit/EditBar';
+import theme from '../../../app/theme';
+import useWindowSize from '../../../utils/useWindowSize';
+import EditBar from '../edit/EditBar';
 import { switchGraph } from './graphSlice';
 
 const useStyles = makeStyles(() => ({

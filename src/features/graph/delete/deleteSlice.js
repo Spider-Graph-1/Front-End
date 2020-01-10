@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { remove } from '../../api/graph';
+import { remove } from '../../../api/graph';
 
 const initialState = {
   deleting: false,

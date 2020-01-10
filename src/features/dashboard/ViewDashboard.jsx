@@ -4,9 +4,9 @@ import { Box, Backdrop, CircularProgress, Fade } from '@material-ui/core';
 import CreateGraph from '../graph/create/CreateGraph';
 import GraphTitleAxis from '../../app/Brett/GraphTitleAxis';
 import { getGraphs } from './dashboardSlice';
-import { clearGraph } from '../graph/graphSlice';
-import Graph from '../graph/Graph';
-import Delete from '../graph/Delete';
+import { clearGraph } from '../graph/view/graphSlice';
+import Graph from './Graph';
+import Delete from '../graph/delete/Delete';
 
 const ViewDashboard = () => {
   const dispatch = useDispatch();

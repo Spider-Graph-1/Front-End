@@ -1,7 +1,12 @@
 import React from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAxis, changeAxis, changeTitle, removeAxis } from '../graphSlice';
+import {
+  addAxis,
+  changeAxis,
+  changeTitle,
+  removeAxis,
+} from '../view/graphSlice';
 
 const EditStructure = () => {
   const dispatch = useDispatch();
