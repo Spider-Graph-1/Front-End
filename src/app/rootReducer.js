@@ -8,6 +8,7 @@ import createGraph from '../features/graph/graphSlice';
 import dashboard from '../features/dashboard/dashboardSlice';
 import addGraph from '../features/graph/saveGraphSlice';
 import changeGraph from '../features/graph/edit/editGraphSlice';
+import removeGraph from '../features/graph/deleteSlice';
 
 const rootReducer = combineReducers({
   auth,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   dashboard,
   addGraph,
   changeGraph,
+  removeGraph,
 });
 
 export default rootReducer;

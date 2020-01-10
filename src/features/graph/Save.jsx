@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { postGraph } from './saveGraphSlice';
 import { putGraph } from './edit/editGraphSlice';
 
@@ -37,6 +38,8 @@ const Save = ({ canSave }) => {
         })
       );
     }
+
+    dispatch(UndoActionCreators.clearHistory());
   };
 
   return (

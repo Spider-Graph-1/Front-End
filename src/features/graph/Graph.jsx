@@ -1,7 +1,15 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
-import { Box, Card, makeStyles, CardContent } from '@material-ui/core';
+import {
+  Box,
+  Card,
+  makeStyles,
+  CardContent,
+  CardActions,
+  IconButton,
+} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useSelector } from 'react-redux';
 import theme from '../../app/theme';
 
@@ -11,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Graph = ({ id }) => {
+const Graph = ({ id, deleteDialog }) => {
   const classes = useStyles();
 
   const {
@@ -80,11 +88,22 @@ const Graph = ({ id }) => {
   };
 
   return (
-    <Box component={Link} to={`/graphs/${id}`} mt={5}>
+    <Box mt={5}>
       <Card className={classes.card}>
-        <CardContent>
-          <Radar data={graphData} options={graphOptions} />
-        </CardContent>
+        <Link to={`/graphs/${id}`}>
+          <CardContent>
+            <Radar data={graphData} options={graphOptions} />
+          </CardContent>
+        </Link>
+        <CardActions>
+          <IconButton
+            color="primary"
+            aria-label="delete"
+            onClick={() => deleteDialog(id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </CardActions>
       </Card>
     </Box>
   );
