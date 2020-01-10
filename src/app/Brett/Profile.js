@@ -141,7 +141,7 @@ const Profile = () => {
               <Typography variant="h6">Name: {userData.email}</Typography>
             ) : (
               <Typography variant="h6">
-                Name:{' '}
+                Email:{' '}
                 <input
                   required
                   name="email"
