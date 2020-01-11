@@ -18,13 +18,13 @@ function Data({ classes, setActiveStep }) {
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
-    datasets.forEach((dataset) => {
-      if (dataset.data.every((value) => value !== '') && dataset.label !== '') {
-        setIsDisabled(false);
-      } else {
-        setIsDisabled(true);
-      }
-    });
+    if (
+      datasets.every((dataset) => dataset.data.every((value) => value !== ''))
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
   }, [datasets]);
 
   const handleSubmit = (event) => {
