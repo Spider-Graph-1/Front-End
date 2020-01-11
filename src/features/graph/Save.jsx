@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Tooltip, Box } from '@material-ui/core';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Prompt } from 'react-router-dom';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { postGraph } from './saveGraphSlice';
 import { putGraph } from './edit/editGraphSlice';
@@ -58,7 +58,7 @@ const Save = ({ canSave }) => {
     return (
       <Tooltip title="All fields must be filled out before saving">
         <Box display="flex" justifyContent="center">
-          <Button disabled={!canSave || incomplete} onClick={handleSave}>
+          <Button disabled onClick={handleSave}>
             Save
           </Button>
         </Box>
@@ -67,9 +67,15 @@ const Save = ({ canSave }) => {
   }
 
   return (
-    <Button disabled={!canSave} onClick={handleSave}>
-      Save
-    </Button>
+    <>
+      <Prompt
+        when={canSave}
+        message="Are you sure you want to leave without saving?"
+      />
+      <Button disabled={!canSave} onClick={handleSave}>
+        Save
+      </Button>
+    </>
   );
 };
 
