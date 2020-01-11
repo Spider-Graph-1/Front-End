@@ -150,7 +150,7 @@ const Profile = () => {
 
           <Box className={classes.textArea}>
             {!blue ? (
-              <Typography variant="h6">Name: {userData.email}</Typography>
+              <Typography variant="h6">Email: {userData.email}</Typography>
             ) : (
               <Typography variant="h6">
                 Email:{' '}
