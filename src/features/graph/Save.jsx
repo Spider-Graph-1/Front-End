@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Button, Tooltip, Box } from '@material-ui/core';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Prompt } from 'react-router-dom';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import { postGraph } from './saveGraphSlice';
 import { putGraph } from './edit/editGraphSlice';
@@ -12,7 +12,19 @@ const Save = ({ canSave }) => {
     (state) => state.createGraph.present
   );
 
+  const [incomplete, setIncomplete] = useState(false);
+
   const { id } = useParams();
+
+  useEffect(() => {
+    if (
+      datasets.every((dataset) => dataset.data.every((value) => value !== ''))
+    ) {
+      setIncomplete(false);
+    } else {
+      setIncomplete(true);
+    }
+  }, [datasets]);
 
   const handleSave = () => {
     if (id) {
@@ -42,10 +54,28 @@ const Save = ({ canSave }) => {
     dispatch(UndoActionCreators.clearHistory());
   };
 
+  if (incomplete) {
+    return (
+      <Tooltip title="All fields must be filled out before saving">
+        <Box display="flex" justifyContent="center">
+          <Button disabled onClick={handleSave}>
+            Save
+          </Button>
+        </Box>
+      </Tooltip>
+    );
+  }
+
   return (
-    <Button disabled={!canSave} onClick={handleSave}>
-      Save
-    </Button>
+    <>
+      <Prompt
+        when={canSave}
+        message="Are you sure you want to leave without saving?"
+      />
+      <Button disabled={!canSave} onClick={handleSave}>
+        Save
+      </Button>
+    </>
   );
 };
 
