@@ -75,7 +75,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.2.9",
     "prettier": "^1.19.1",
     "serve": "^11.2.0",
     "sort-package-json": "^1.31.0",
