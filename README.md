@@ -1,70 +1,13 @@
-# [Spider Graph Front End](https://spidergraph.now.sh/)
+# Spider Graph
+An app for quickly creating beautiful spider graphs and saving them for future editing or download.
+## [Deployed](https://spidergraph.now.sh/)
+
+# Motivation
+Chart or graph generators are typically full of options and graph types which make it difficult to create and save charts that look nice. Spider graph specifically focuses on spider or radar graphs and provides an easy to use interface to building charts that look great by default.
 
 ## [Product Vision](https://www.notion.so/Product-Vision-bcc33f41ecc94cd395ebdbb4504b1f23)
 
-## Project Structure
-
-```bash
-src
-├── api
-│   ├── auth.js
-│   ├── dashboard.js
-│   ├── graph.js
-│   └── utils
-│       └── axiosWithAuth.js
-├── app
-│   ├── App.jsx
-│   ├── Brett
-│   │   ├── BrettApp.js
-│   │   ├── DataForm.js
-│   │   ├── GraphTitleAxis.js
-│   │   ├── Profile.js
-│   │   └── SpiderChart.js
-│   ├── Navbar.jsx
-│   ├── rootReducer.js
-│   ├── store.js
-│   └── theme.js
-├── assets
-│   └── logo.png
-├── features
-│   ├── auth
-│   │   ├── authSlice.js
-│   │   ├── Login.jsx
-│   │   ├── Logout.jsx
-│   │   ├── PrivateRoute.jsx
-│   │   ├── Register.jsx
-│   │   └── useAuthForm.jsx
-│   ├── dashboard
-│   │   ├── dashboardSlice.js
-│   │   ├── Graph.jsx
-│   │   └── ViewDashboard.jsx
-│   ├── graph
-│   │   ├── create
-│   │   │   ├── CreateGraph.jsx
-│   │   │   ├── Data.jsx
-│   │   │   ├── DatasetPanel.jsx
-│   │   │   └── Structure.jsx
-│   │   ├── delete
-│   │   │   ├── Delete.jsx
-│   │   │   └── deleteSlice.js
-│   │   ├── edit
-│   │   │   ├── EditBar.jsx
-│   │   │   ├── EditData.jsx
-│   │   │   ├── editGraphSlice.js
-│   │   │   ├── EditStructure.jsx
-│   │   │   └── UndoRedo.jsx
-│   │   ├── saveGraphSlice.js
-│   │   ├── Save.jsx
-│   │   └── view
-│   │       ├── graphSlice.js
-│   │       └── ViewGraph.jsx
-│   └── users
-├── index.jsx
-└── utils
-    ├── colors.js
-    └── useWindowSize.js
-```
-
+# Development
 ## Available Scripts
 
 In the project directory, you can run:
