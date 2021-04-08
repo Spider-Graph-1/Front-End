@@ -3,6 +3,7 @@ An app for quickly creating beautiful spider graphs and saving them for future e
 ## [Deployed](https://spidergraph.now.sh/)
 ## Demo Credentials:
 username: demo
+
 password: what'smyboggle?
 
 # Motivation
