@@ -1,6 +1,9 @@
 # Spider Graph
 An app for quickly creating beautiful spider graphs and saving them for future editing or download.
 ## [Deployed](https://spidergraph.now.sh/)
+## Demo Credentials:
+username: demo
+password: what'smyboggle?
 
 # Motivation
 Chart or graph generators are typically full of options and graph types which make it difficult to create and save charts that look nice. Spider graph specifically focuses on spider or radar graphs and provides an easy to use interface to building charts that look great by default.
